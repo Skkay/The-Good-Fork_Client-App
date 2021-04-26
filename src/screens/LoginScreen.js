@@ -1,7 +1,7 @@
 import React from "react";
 import { Alert, Button, SafeAreaView, StyleSheet, TextInput } from "react-native";
 
-const LoginForm = () => {
+const LoginScreen = () => {
   const [email, onChangeEmail] = React.useState();
   const [password, onChangePassword] = React.useState();
 
@@ -46,4 +46,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginForm;
+export default LoginScreen;
