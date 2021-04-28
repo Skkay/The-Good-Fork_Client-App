@@ -9,6 +9,7 @@ import axios from "axios";
 import { AuthContext } from "./src/components/AuthContext";
 import HomeScreen from "./src/screens/HomeScreen";
 import LoginScreen from "./src/screens/LoginScreen";
+import MenuScreen from "./src/screens/MenuScreen";
 
 const App = () => {
   const Stack = createStackNavigator();
@@ -125,6 +126,7 @@ const App = () => {
         {loginState.userToken !== null ? (
           <Stack.Navigator initialRouteName="Home">
             <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="Menu" component={MenuScreen} />
           </Stack.Navigator>
         ) : (
           <LoginScreen />
