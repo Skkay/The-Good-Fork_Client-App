@@ -3,7 +3,7 @@ import { Button, SafeAreaView, Text } from "react-native";
 
 import { AuthContext } from '../components/AuthContext';
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
   const { signOut } = useContext(AuthContext);
 
   return (
@@ -12,6 +12,10 @@ const HomeScreen = () => {
       <Button
         title="Logout"
         onPress={() => {signOut()}}
+      />
+      <Button 
+        title="Menus"
+        onPress={() => navigation.navigate('Menu')}
       />
     </SafeAreaView>
   );
