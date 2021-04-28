@@ -1,22 +1,17 @@
-import React, { useEffect, useState, useMemo, useReducer } from "react";
-import HomeScreen from "./src/screens/HomeScreen";
+import React, { useEffect, useMemo, useReducer } from "react";
+import { ActivityIndicator, StyleSheet, View } from "react-native";
 
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import LoginScreen from "./src/screens/LoginScreen";
-import { ActivityIndicator, View, StyleSheet, Text } from "react-native";
+import axios from "axios";
 
 import { AuthContext } from "./src/components/AuthContext";
-
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
-import axios from 'axios';
+import HomeScreen from "./src/screens/HomeScreen";
+import LoginScreen from "./src/screens/LoginScreen";
 
 const App = () => {
   const Stack = createStackNavigator();
-
-  // const [isLoading, setIsLoading] = useState(true);
-  // const [userToken, setUserToken] = useState(null);
 
   const initialLoginState = {
     isLoading: true,
@@ -58,66 +53,64 @@ const App = () => {
 
   const [loginState, dispatch] = useReducer(loginReducer, initialLoginState);
 
-  const authContext = useMemo(
-    () => ({
-      signIn: async(userEmail, password) => {
-        // setUserToken("token");
-        // setIsLoading(false);
-        let userToken = null;
-        await axios({
-          method: "POST",
-          url: "http://192.168.1.18/3proj_api/public/index.php/api/login",
-          withCredentials: true,
-          data: {
-            email: userEmail,
-            password: password,
-          },
-        })
+  const authContext = useMemo(() => ({
+
+    // Send API request to sign in and store token using AsyncStorage
+    signIn: async (userEmail, password) => {
+      let userToken = null;
+      await axios({
+        method: "POST",
+        url: "http://192.168.1.18/3proj_api/public/index.php/api/login",
+        withCredentials: true,
+        data: {
+          email: userEmail,
+          password: password,
+        },
+      })
         .then((res) => {
-          console.log("connected\nToken:", res.data.token);
+          userToken = res.data.token;
+          console.log("connected\nToken:", userToken);
           try {
-            userToken = res.data.token;
-            AsyncStorage.setItem('userToken', userToken)
+            AsyncStorage.setItem("userToken", userToken);
           } catch (e) {
-            console.log(e)
+            console.log(e);
           }
         })
         .catch((err) => {
           console.log(err);
-        })
-        dispatch({ type: 'LOGIN', email: userEmail, token: userToken })
-      },
-      signOut: async() => {
-        // setUserToken(null);
-        // setIsLoading(false);
-        try {
-          await AsyncStorage.removeItem('userToken')
-        } catch (e) {
-          console.log(e)
-        }
-        dispatch({ type: 'LOGOUT' })
-      },
-      signUp: () => {
-        // setUserToken("token");
-        // setIsLoading(false);
-      },
-    }),
-    []
-  );
+        });
+      dispatch({ type: "LOGIN", email: userEmail, token: userToken });
+    },
 
+    // Remove stored token
+    signOut: async () => {
+      try {
+        await AsyncStorage.removeItem("userToken");
+      } catch (e) {
+        console.log(e);
+      }
+      dispatch({ type: "LOGOUT" });
+    },
+
+    signUp: () => {
+      // TODO
+    },
+  }), []);
+
+  // Try to retrieve stored user token
   useEffect(() => {
-    setTimeout(async() => {
-      // setIsLoading(false);
+    setTimeout(async () => {
       let userToken = null;
       try {
-        userToken = await AsyncStorage.getItem('userToken')
+        userToken = await AsyncStorage.getItem("userToken");
       } catch (e) {
-        console.log(e)
+        console.log(e);
       }
-      dispatch({ type: 'RETRIEVE_TOKEN', token: userToken })
+      dispatch({ type: "RETRIEVE_TOKEN", token: userToken });
     }, 1000);
   }, []);
 
+  // Loading indicator
   if (loginState.isLoading) {
     return (
       <View style={styles.activityIndicator}>

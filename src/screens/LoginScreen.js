@@ -1,40 +1,12 @@
 import React, { useContext } from "react";
-import { Alert, Button, SafeAreaView, StyleSheet, TextInput } from "react-native";
-import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Button, SafeAreaView, StyleSheet, TextInput } from "react-native";
+
 import { AuthContext } from '../components/AuthContext';
 
 const LoginScreen = () => {
   const [email, onChangeEmail] = React.useState("user@example.com");
   const [password, onChangePassword] = React.useState("user");
-
   const { signIn } = useContext(AuthContext);
-
-  const handleSubmit = () => {
-    console.log("Email:" + email + "\nPassword:" + password);
-
-
-    // axios({
-    //   method: "POST",
-    //   url: "http://192.168.1.18/3proj_api/public/index.php/api/login",
-    //   withCredentials: true,
-    //   data: {
-    //     email: email,
-    //     password: password,
-    //   },
-    // })
-    // .then((res) => {
-    //   console.log("connected\nToken:", res.data.token);
-    //   try {
-    //     AsyncStorage.setItem("@token", res.data.token);
-    //   } catch (e) {
-    //     console.log("error during token saving");
-    //   }
-    // })
-    // .catch((err) => {
-    //   console.log(err);
-    // })
-  }
 
   return (
     <SafeAreaView>
@@ -59,8 +31,7 @@ const LoginScreen = () => {
       />
       <Button
         title="Se connecter"
-        // onPress={handleSubmit}
-        onPress={() => {signIn(email, password)}}
+        onPress={() => signIn(email, password)}
       />
     </SafeAreaView>
   );
