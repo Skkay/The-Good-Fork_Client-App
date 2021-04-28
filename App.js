@@ -125,7 +125,6 @@ const App = () => {
         {loginState.userToken !== null ? (
           <Stack.Navigator initialRouteName="Home">
             <Stack.Screen name="Home" component={HomeScreen} />
-            <Stack.Screen name="Login" component={LoginScreen} />
           </Stack.Navigator>
         ) : (
           <LoginScreen />
