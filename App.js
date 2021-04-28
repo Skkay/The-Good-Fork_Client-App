@@ -60,7 +60,7 @@ const App = () => {
       let userToken = null;
       await axios({
         method: "POST",
-        url: "http://192.168.1.18/3proj_api/public/index.php/api/login",
+        url: "http://192.168.1.18/3proj_api/public/api/login",
         withCredentials: true,
         data: {
           email: userEmail,
