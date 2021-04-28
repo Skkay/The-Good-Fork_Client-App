@@ -10,6 +10,8 @@ import { AuthContext } from "./src/components/AuthContext";
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import axios from 'axios';
+
 const App = () => {
   const Stack = createStackNavigator();
 
@@ -62,15 +64,27 @@ const App = () => {
         // setUserToken("token");
         // setIsLoading(false);
         let userToken = null;
-        if (userEmail === 'user@example.com' && password === 'user') {
+        await axios({
+          method: "POST",
+          url: "http://192.168.1.18/3proj_api/public/index.php/api/login",
+          withCredentials: true,
+          data: {
+            email: userEmail,
+            password: password,
+          },
+        })
+        .then((res) => {
+          console.log("connected\nToken:", res.data.token);
           try {
-            userToken = 'token'
-            await AsyncStorage.setItem('userToken', userToken)
+            userToken = res.data.token;
+            AsyncStorage.setItem('userToken', userToken)
           } catch (e) {
             console.log(e)
           }
-          
-        }
+        })
+        .catch((err) => {
+          console.log(err);
+        })
         dispatch({ type: 'LOGIN', email: userEmail, token: userToken })
       },
       signOut: async() => {
