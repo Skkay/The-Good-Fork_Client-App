@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, Button, FlatList, SafeAreaView, Text, View, StyleSheet } from "react-native";
+import { ActivityIndicator, FlatList, SafeAreaView, Text } from "react-native";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
+import Item from "../components/Item";
 
 const fetchToken = async() => {
   let userToken = null;
@@ -18,6 +20,7 @@ const MenuScreen = () => {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const [token, setToken] = useState(null);
+  const [selectedId, setSelectedId] = useState(null);
   
   useEffect(() => {
     fetchToken()
@@ -43,11 +46,23 @@ const MenuScreen = () => {
       .finally(() => setLoading(false));
   }, [token]);
 
-  const renderItem = ({ item }) => (
-    <View style={styles.item}>
-      <Text style={styles.title}>{item.name}, {item.price}€</Text>
-    </View>
-  );
+  const onItemClick = (item) => {
+    setSelectedId(item.id);
+  }
+
+  const renderItem = ({ item }) => {
+    const backgroundColor = item.id === selectedId ? "#6e3b6e" : "#f9c2ff";
+    const color = item.id === selectedId ? "#ffffff" : "#000000";
+
+    return (
+      <Item
+        item={item}
+        onPress={() => onItemClick(item)}
+        backgroundColor={{ backgroundColor }}
+        textColor={{ color }}
+      />
+    );
+  };
 
   return (
     <SafeAreaView style={{ flex: 1, padding: 24 }}>
@@ -57,22 +72,11 @@ const MenuScreen = () => {
           data={data}
           renderItem={renderItem}
           keyExtractor={item => item.id.toString()}
+          extraData={selectedId}
         />
       )}
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  item: {
-    backgroundColor: '#f9c2ff',
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
-  },
-  title: {
-    fontSize: 32,
-  },
-});
 
 export default MenuScreen;
