@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, StyleSheet, Modal, Pressable, View } from "react-native";
+import { Text, StyleSheet, Modal, Pressable, View, ScrollView  } from "react-native";
 
 const MenuModal = ({ modalVisible, onRequestClose, onPress, selectedItem }) => {
   const drinksData = [];
@@ -25,38 +25,38 @@ const MenuModal = ({ modalVisible, onRequestClose, onPress, selectedItem }) => {
       transparent={true}
       visible={modalVisible}
       onRequestClose={onRequestClose}>
-      <View style={styles.centeredView}>
-        <View style={styles.modalView}>
-          <Text style={styles.modalText}>Plats :</Text>
+      <View style={styles.modalView}>
+        <ScrollView style={styles.content}>
+          <Text style={styles.textTitle}>Plats :</Text>
           {foodsData}
 
-          <Text style={styles.modalText}>Boissons :</Text>
+          <Text>{"\n"}</Text>
+          
+          <Text style={styles.textTitle}>Boissons :</Text>
           {drinksData}
 
+        </ScrollView>
           <Pressable
-            style={[styles.button, styles.buttonClose]}
+            style={styles.button}
             onPress={onPress}>
-            <Text style={styles.textStyle}>Hide Modal</Text>
+            <Text style={styles.textButton}>Fermer</Text>
           </Pressable>
-        </View>
       </View>
     </Modal>
   );
 };
 
 const styles = StyleSheet.create({
-  centeredView: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 22
-  },
   modalView: {
-    margin: 20,
+    flex: 1,
+
+    marginTop: 120,
+    marginBottom: 60,
+    marginHorizontal: 35,
+
     backgroundColor: "white",
-    borderRadius: 20,
-    padding: 35,
-    alignItems: "center",
+    borderRadius: 5,
+    
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -66,26 +66,28 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5
   },
+
+  content: {
+    paddingHorizontal: 35,
+    marginTop: 10,
+  },
+  textTitle: {
+    textAlign: "center",
+    fontSize: 20
+  },
+
   button: {
-    borderRadius: 20,
+    borderRadius: 5,
     padding: 10,
-    elevation: 2
-  },
-  buttonOpen: {
-    backgroundColor: "#F194FF",
-  },
-  buttonClose: {
+    margin: 10,
+    elevation: 2,
     backgroundColor: "#2196F3",
   },
-  textStyle: {
+  textButton: {
     color: "white",
     fontWeight: "bold",
     textAlign: "center"
   },
-  modalText: {
-    marginBottom: 15,
-    textAlign: "center"
-  }
 });
 
 export default MenuModal;
