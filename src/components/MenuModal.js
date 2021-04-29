@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, StyleSheet, Modal, Pressable, View, ScrollView  } from "react-native";
 
-const MenuModal = ({ modalVisible, onRequestClose, onPress, selectedItem }) => {
+const MenuModal = ({ modalVisible, onRequestClose, onCloseButtonPress, selectedItem }) => {
   const drinksData = [];
   const foodsData = [];
 
@@ -38,7 +38,7 @@ const MenuModal = ({ modalVisible, onRequestClose, onPress, selectedItem }) => {
         </ScrollView>
           <Pressable
             style={styles.button}
-            onPress={onPress}>
+            onPress={onCloseButtonPress}>
             <Text style={styles.textButton}>Fermer</Text>
           </Pressable>
       </View>

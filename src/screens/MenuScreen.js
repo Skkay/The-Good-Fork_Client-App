@@ -76,7 +76,7 @@ const MenuScreen = () => {
       <MenuModal
         modalVisible={modalVisible}
         onRequestClose={() => setModalVisible(!modalVisible)}
-        onPress={() => setModalVisible(!modalVisible)}
+        onCloseButtonPress={() => setModalVisible(!modalVisible)}
         selectedItem={selectedItem}
       />
 
