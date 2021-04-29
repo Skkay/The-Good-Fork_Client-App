@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, FlatList, SafeAreaView, Text } from "react-native";
+import { ActivityIndicator, FlatList, SafeAreaView } from "react-native";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -66,8 +66,6 @@ const MenuScreen = () => {
 
   return (
     <SafeAreaView style={{ flex: 1, padding: 24 }}>
-      <Text>Menu screen</Text>
-
       <MenuModal
         modalVisible={modalVisible}
         onRequestClose={() => setModalVisible(!modalVisible)}
