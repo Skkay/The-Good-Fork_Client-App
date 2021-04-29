@@ -1,9 +1,9 @@
 import React from "react";
 import { Text, TouchableOpacity, StyleSheet } from "react-native";
 
-const Item = ({ item, onPress, backgroundColor, textColor }) => (
-  <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
-    <Text style={[styles.title, textColor]}>{item.name}, {item.price}€</Text>
+const Item = ({ item, onPress }) => (
+  <TouchableOpacity onPress={onPress} style={styles.item}>
+    <Text style={styles.title}>{item.name}, {item.price}€</Text>
   </TouchableOpacity>
 );
 
@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
     padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
+    backgroundColor: "#F9C2FF",
   },
   title: {
     fontSize: 32,

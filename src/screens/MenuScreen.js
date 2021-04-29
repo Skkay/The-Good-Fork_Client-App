@@ -56,15 +56,10 @@ const MenuScreen = () => {
   }
 
   const renderItem = ({ item }) => {
-    const backgroundColor = item.id === selectedId ? "#6e3b6e" : "#f9c2ff";
-    const color = item.id === selectedId ? "#ffffff" : "#000000";
-
     return (
       <Item
         item={item}
         onPress={() => onItemClick(item)}
-        backgroundColor={{ backgroundColor }}
-        textColor={{ color }}
       />
     );
   };
