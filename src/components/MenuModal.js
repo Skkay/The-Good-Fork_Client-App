@@ -2,8 +2,8 @@ import React from "react";
 import { Text, StyleSheet, Modal, Pressable, View, ScrollView  } from "react-native";
 
 const MenuModal = ({ modalVisible, onRequestClose, onCloseButtonPress, selectedItem }) => {
-  let menuName = "";
-  let menuDescription = "";
+  let menuName = null;
+  let menuDescription = null;
   const drinksData = [];
   const foodsData = [];
 
@@ -32,7 +32,9 @@ const MenuModal = ({ modalVisible, onRequestClose, onCloseButtonPress, selectedI
       <View style={styles.modalView}>
         <ScrollView style={styles.content}>
           <Text style={styles.textTitle}>{menuName}</Text>
-          <Text style={styles.textDescription}>{menuDescription}</Text>
+          {menuDescription  &&
+            <Text style={styles.textDescription}>{menuDescription}</Text>
+          }
           <Text>{"\n"}</Text>
           <Text style={styles.textSubTitle}>Plats :</Text>
           {foodsData}
