@@ -4,6 +4,7 @@ import { ActivityIndicator, FlatList, SafeAreaView, Text } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import Item from "../components/Item";
+import MenuModal from "../components/MenuModal";
 
 const fetchToken = async() => {
   let userToken = null;
@@ -21,6 +22,8 @@ const MenuScreen = () => {
   const [data, setData] = useState([]);
   const [token, setToken] = useState(null);
   const [selectedId, setSelectedId] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
   
   useEffect(() => {
     fetchToken()
@@ -48,6 +51,8 @@ const MenuScreen = () => {
 
   const onItemClick = (item) => {
     setSelectedId(item.id);
+    setSelectedItem(item);
+    setModalVisible(true);
   }
 
   const renderItem = ({ item }) => {
@@ -67,6 +72,14 @@ const MenuScreen = () => {
   return (
     <SafeAreaView style={{ flex: 1, padding: 24 }}>
       <Text>Menu screen</Text>
+
+      <MenuModal
+        modalVisible={modalVisible}
+        onRequestClose={() => setModalVisible(!modalVisible)}
+        onPress={() => setModalVisible(!modalVisible)}
+        selectedItem={selectedItem}
+      />
+
       {isLoading ? <ActivityIndicator size="large" color="#000000" /> : (
         <FlatList
           data={data}
