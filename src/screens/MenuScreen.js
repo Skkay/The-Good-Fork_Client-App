@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, FlatList, SafeAreaView } from "react-native";
+import { ActivityIndicator, FlatList, SafeAreaView, StyleSheet } from "react-native";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -65,7 +65,7 @@ const MenuScreen = () => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, padding: 24 }}>
+    <SafeAreaView style={styles.content}>
       <MenuModal
         modalVisible={modalVisible}
         onRequestClose={() => setModalVisible(!modalVisible)}
@@ -84,5 +84,12 @@ const MenuScreen = () => {
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  content: {
+    flex: 1,
+    padding: 24,
+  }
+});
 
 export default MenuScreen;
