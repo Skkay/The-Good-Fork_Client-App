@@ -2,10 +2,14 @@ import React from "react";
 import { Text, StyleSheet, Modal, Pressable, View, ScrollView  } from "react-native";
 
 const MenuModal = ({ modalVisible, onRequestClose, onCloseButtonPress, selectedItem }) => {
+  let menuName = "";
+  let menuDescription = "";
   const drinksData = [];
   const foodsData = [];
 
   if (selectedItem) {
+    menuName = selectedItem.name;
+    menuDescription = selectedItem.description;
     if (selectedItem.drinks.length > 0) {
       selectedItem.drinks.forEach(e => drinksData.push(<Text key={e.id}>{e.name}</Text>));
     } else {
@@ -27,12 +31,15 @@ const MenuModal = ({ modalVisible, onRequestClose, onCloseButtonPress, selectedI
       onRequestClose={onRequestClose}>
       <View style={styles.modalView}>
         <ScrollView style={styles.content}>
-          <Text style={styles.textTitle}>Plats :</Text>
+          <Text style={styles.textTitle}>{menuName}</Text>
+          <Text style={styles.textDescription}>{menuDescription}</Text>
+          <Text>{"\n"}</Text>
+          <Text style={styles.textSubTitle}>Plats :</Text>
           {foodsData}
 
           <Text>{"\n"}</Text>
           
-          <Text style={styles.textTitle}>Boissons :</Text>
+          <Text style={styles.textSubTitle}>Boissons :</Text>
           {drinksData}
 
         </ScrollView>
@@ -73,7 +80,18 @@ const styles = StyleSheet.create({
   },
   textTitle: {
     textAlign: "center",
-    fontSize: 20
+    fontSize: 22,
+    fontWeight: "bold"
+  },
+  textDescription: {
+    textAlign: "center",
+    fontSize: 18,
+    fontStyle: "italic",
+    color: "#6C757D",
+  },
+  textSubTitle: {
+    textAlign: "center",
+    fontSize: 20,
   },
 
   button: {
