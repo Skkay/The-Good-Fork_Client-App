@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { ActivityIndicator, FlatList, SafeAreaView, StyleSheet } from "react-native";
+import React, { useEffect, useState, useContext } from "react";
+import { ActivityIndicator, Alert, FlatList, SafeAreaView, StyleSheet } from "react-native";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+import { AuthContext } from '../components/AuthContext';
 import Item from "../components/Item";
 import MenuModal from "../components/MenuModal";
 
@@ -18,6 +19,7 @@ const fetchToken = async() => {
 }
 
 const MenuScreen = () => {
+  const { signOut } = useContext(AuthContext);
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const [token, setToken] = useState(null);
@@ -42,6 +44,13 @@ const MenuScreen = () => {
     fetch('http://192.168.1.18/3proj_api/public/api/menus', options)
       .then((res) => {
         if (!res.ok) {
+          if (res.status === 401) {
+            Alert.alert(
+              "Session expirée",
+              "Votre session a expiré, veuillez vous reconnecter.",
+              [{ text: "Ok", onPress: () => signOut() }]
+            );
+          }
           throw Error(res.status);
         }
         res.json()
