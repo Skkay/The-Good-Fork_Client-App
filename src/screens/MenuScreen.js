@@ -26,6 +26,7 @@ const MenuScreen = () => {
   const [selectedId, setSelectedId] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [refreshing, setRefreshing] = useState(false);
   
   useEffect(() => {
     fetchToken()
@@ -57,8 +58,11 @@ const MenuScreen = () => {
       })
       .then((json) => setData(json))
       .catch((err) => console.log(err))
-      .finally(() => setLoading(false));
-  }, [token]);
+      .finally(() => {
+        setLoading(false); 
+        setRefreshing(false)
+      });
+  }, [token, refreshing]);
 
   const onItemClick = (item) => {
     setSelectedId(item.id);
@@ -90,6 +94,8 @@ const MenuScreen = () => {
           renderItem={renderItem}
           keyExtractor={item => item.id.toString()}
           extraData={selectedId}
+          refreshing={refreshing}
+          onRefresh={() => setRefreshing(true)}
         />
       )}
     </SafeAreaView>
