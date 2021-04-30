@@ -53,7 +53,7 @@ const MenuScreen = () => {
           }
           throw Error(res.status);
         }
-        res.json()
+        return res.json();
       })
       .then((json) => setData(json))
       .catch((err) => console.log(err))
