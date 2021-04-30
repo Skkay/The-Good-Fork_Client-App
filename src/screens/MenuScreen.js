@@ -40,7 +40,12 @@ const MenuScreen = () => {
     }
 
     fetch('http://192.168.1.18/3proj_api/public/api/menus', options)
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          throw Error(res.status);
+        }
+        res.json()
+      })
       .then((json) => setData(json))
       .catch((err) => console.log(err))
       .finally(() => setLoading(false));
