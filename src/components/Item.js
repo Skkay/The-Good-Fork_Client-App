@@ -6,7 +6,7 @@ const Item = ({ item, onPress }) => (
     <ScrollView horizontal={true}>
       <Text style={styles.title}>{item.name}</Text>
     </ScrollView>
-    <Text style={styles.price}>{item.price}€</Text>
+    <Text style={styles.price}>{Number.parseFloat(item.price).toFixed(2)} €</Text>
   </TouchableOpacity>
 );
 
