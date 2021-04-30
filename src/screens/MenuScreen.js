@@ -23,7 +23,6 @@ const MenuScreen = () => {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const [token, setToken] = useState(null);
-  const [selectedId, setSelectedId] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [refreshing, setRefreshing] = useState(false);
@@ -65,7 +64,6 @@ const MenuScreen = () => {
   }, [token, refreshing]);
 
   const onItemClick = (item) => {
-    setSelectedId(item.id);
     setSelectedItem(item);
     setModalVisible(true);
   }
@@ -93,7 +91,6 @@ const MenuScreen = () => {
           data={data}
           renderItem={renderItem}
           keyExtractor={item => item.id.toString()}
-          extraData={selectedId}
           refreshing={refreshing}
           onRefresh={() => setRefreshing(true)}
         />
