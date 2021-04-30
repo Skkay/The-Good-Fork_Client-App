@@ -13,3 +13,5 @@ web-build/
 .DS_Store
 
 todo.txt
+keystore.txt
+app.json.exported
