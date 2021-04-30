@@ -5,6 +5,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import axios from "axios";
+import jwt_decode from "jwt-decode";
 
 import { AuthContext } from "./src/components/AuthContext";
 import HomeScreen from "./src/screens/HomeScreen";
@@ -70,9 +71,11 @@ const App = () => {
       })
         .then((res) => {
           userToken = res.data.token;
+          userTokenExp = jwt_decode(userToken).exp.toString();
           console.log("connected\nToken:", userToken);
           try {
             AsyncStorage.setItem("userToken", userToken);
+            AsyncStorage.setItem("userTokenExp", userTokenExp);
           } catch (e) {
             console.log(e);
           }
@@ -87,6 +90,7 @@ const App = () => {
     signOut: async () => {
       try {
         await AsyncStorage.removeItem("userToken");
+        await AsyncStorage.removeItem("userTokenExp");
       } catch (e) {
         console.log(e);
       }
@@ -103,7 +107,11 @@ const App = () => {
     setTimeout(async () => {
       let userToken = null;
       try {
-        userToken = await AsyncStorage.getItem("userToken");
+        const userTokenExp = await AsyncStorage.getItem("userTokenExp");
+        if (userTokenExp > Math.floor(Date.now() / 1000)) {
+          userToken = await AsyncStorage.getItem("userToken");
+          console.log("Token still valid for", userTokenExp - Math.floor(Date.now() / 1000), "seconds");
+        }
       } catch (e) {
         console.log(e);
       }
