@@ -4,10 +4,12 @@ import { Text, StyleSheet, Modal, Pressable, View, ScrollView  } from "react-nat
 const DetailFoodModal = ({ modalVisible, onRequestClose, onCloseButtonPress, selectedItem }) => {
   let foodName = null;
   let foodDescription = null;
+  let foodPrice = null;
 
   if (selectedItem) {
     foodName = selectedItem.name;
     foodDescription = selectedItem.description;
+    foodPrice = selectedItem.price;
   }
 
   return (
@@ -22,6 +24,7 @@ const DetailFoodModal = ({ modalVisible, onRequestClose, onCloseButtonPress, sel
           {foodDescription  &&
             <Text style={styles.textDescription}>{foodDescription}</Text>
           }
+          <Text style={styles.textPrice}>{Number.parseFloat(foodPrice).toFixed(2)} €</Text>
         </ScrollView>
           <Pressable
             style={styles.button}
@@ -72,6 +75,10 @@ const styles = StyleSheet.create({
   textSubTitle: {
     textAlign: "center",
     fontSize: 20,
+  },
+  textPrice: {
+    textAlign: "center",
+    fontSize: 16,
   },
 
   button: {
