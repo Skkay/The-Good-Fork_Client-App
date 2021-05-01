@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, StyleSheet, Modal, Pressable, View, ScrollView  } from "react-native";
 
-const MenuModal = ({ modalVisible, onRequestClose, onCloseButtonPress, selectedItem }) => {
+const DetailMenuModal = ({ modalVisible, onRequestClose, onCloseButtonPress, selectedItem }) => {
   let menuName = null;
   let menuDescription = null;
   const drinksData = [];
@@ -110,4 +110,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MenuModal;
+export default DetailMenuModal;

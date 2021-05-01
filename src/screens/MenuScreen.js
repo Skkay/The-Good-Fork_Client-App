@@ -5,7 +5,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { AuthContext } from '../components/AuthContext';
 import Item from "../components/Item";
-import MenuModal from "../components/MenuModal";
+import DetailMenuModal from "../components/DetailMenuModal";
 
 const fetchToken = async() => {
   let userToken = null;
@@ -79,7 +79,7 @@ const MenuScreen = () => {
 
   return (
     <SafeAreaView style={styles.content}>
-      <MenuModal
+      <DetailMenuModal
         modalVisible={modalVisible}
         onRequestClose={() => setModalVisible(!modalVisible)}
         onCloseButtonPress={() => setModalVisible(!modalVisible)}
