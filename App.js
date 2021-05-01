@@ -11,6 +11,7 @@ import { AuthContext } from "./src/components/AuthContext";
 import HomeScreen from "./src/screens/HomeScreen";
 import LoginScreen from "./src/screens/LoginScreen";
 import MenuScreen from "./src/screens/MenuScreen";
+import FoodScreen from "./src/screens/FoodScreen";
 
 const App = () => {
   const Stack = createStackNavigator();
@@ -135,6 +136,7 @@ const App = () => {
           <Stack.Navigator initialRouteName="Home">
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="Menu" component={MenuScreen} />
+            <Stack.Screen name="Food" component={FoodScreen} />
           </Stack.Navigator>
         ) : (
           <LoginScreen />
