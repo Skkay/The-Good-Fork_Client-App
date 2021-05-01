@@ -4,12 +4,14 @@ import { Text, StyleSheet, Modal, Pressable, View, ScrollView  } from "react-nat
 const DetailMenuModal = ({ modalVisible, onRequestClose, onCloseButtonPress, selectedItem }) => {
   let menuName = null;
   let menuDescription = null;
+  let menuPrice = null;
   const drinksData = [];
   const foodsData = [];
 
   if (selectedItem) {
     menuName = selectedItem.name;
     menuDescription = selectedItem.description;
+    menuPrice = selectedItem.price;
     if (selectedItem.drinks.length > 0) {
       selectedItem.drinks.forEach(e => drinksData.push(<Text key={e.id}>{e.name}</Text>));
     } else {
@@ -35,6 +37,7 @@ const DetailMenuModal = ({ modalVisible, onRequestClose, onCloseButtonPress, sel
           {menuDescription  &&
             <Text style={styles.textDescription}>{menuDescription}</Text>
           }
+          <Text style={styles.textPrice}>{Number.parseFloat(menuPrice).toFixed(2)} €</Text>
           <Text>{"\n"}</Text>
           <Text style={styles.textSubTitle}>Plats :</Text>
           {foodsData}
@@ -94,6 +97,10 @@ const styles = StyleSheet.create({
   textSubTitle: {
     textAlign: "center",
     fontSize: 20,
+  },
+  textPrice: {
+    textAlign: "center",
+    fontSize: 16,
   },
 
   button: {
