@@ -1,12 +1,12 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Button, SafeAreaView, StyleSheet, TextInput, ActivityIndicator } from "react-native";
 
 import { AuthContext } from '../components/AuthContext';
 
 const LoginScreen = () => {
-  const [email, onChangeEmail] = React.useState("user@example.com");
-  const [password, onChangePassword] = React.useState("user");
-  const [isLoading, setLoading] = React.useState(false);
+  const [email, onChangeEmail] = useState("user@example.com");
+  const [password, onChangePassword] = useState("user");
+  const [isLoading, setLoading] = useState(false);
   const { signIn } = useContext(AuthContext);
 
   return (
