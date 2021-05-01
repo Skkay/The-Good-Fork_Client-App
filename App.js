@@ -13,6 +13,7 @@ import LoginScreen from "./src/screens/LoginScreen";
 import MenuScreen from "./src/screens/MenuScreen";
 import FoodScreen from "./src/screens/FoodScreen";
 import DrinkScreen from "./src/screens/DrinkScreen";
+import OrderScreen from "./src/screens/OrderScreen";
 
 const App = () => {
   const Stack = createStackNavigator();
@@ -139,6 +140,7 @@ const App = () => {
             <Stack.Screen name="Menu" component={MenuScreen} />
             <Stack.Screen name="Food" component={FoodScreen} />
             <Stack.Screen name="Drink" component={DrinkScreen} />
+            <Stack.Screen name="Order" component={OrderScreen} />
           </Stack.Navigator>
         ) : (
           <LoginScreen />
