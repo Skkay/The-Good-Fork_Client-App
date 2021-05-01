@@ -21,6 +21,10 @@ const HomeScreen = ({ navigation }) => {
         title="Foods"
         onPress={() => navigation.navigate('Food')}
       />
+      <Button 
+        title="Drinks"
+        onPress={() => navigation.navigate('Drink')}
+      />
     </SafeAreaView>
   );
 };
