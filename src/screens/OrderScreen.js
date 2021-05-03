@@ -7,7 +7,7 @@ const OrderScreen = () => {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1}}>
       <View style={styles.header}>
         <TouchableOpacity style={[styles.headerButton, activeTab === 0 && styles.headerButtonActive]} onPress={() => setActiveTab(0)}>
           <Text style={styles.headerButtonText}>Menus</Text>
