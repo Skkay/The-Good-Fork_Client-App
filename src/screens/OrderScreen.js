@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
+import MenuTab from "./order_tabs/MenuTab";
+
 const OrderScreen = () => {
   const [activeTab, setActiveTab] = useState(0);
 
@@ -18,7 +20,7 @@ const OrderScreen = () => {
         </TouchableOpacity>
       </View>
       {activeTab === 0 && (
-        <Text>Tab 1</Text>
+        <MenuTab />
       )}
       {activeTab === 1 && (
         <Text>Tab 2</Text>
