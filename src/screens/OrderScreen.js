@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
-import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View, ActivityIndicator, Alert } from "react-native";
+import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View, ActivityIndicator } from "react-native";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { AuthContext } from '../components/AuthContext';
+import ExpiredSession from '../components/alert/ExpiredSession';
+import fecthMenus from '../components/fetch/FetchMenus';
 import MenuTab from "./order_tabs/MenuTab";
 
 const fetchToken = async() => {
@@ -22,7 +24,7 @@ const OrderScreen = () => {
   const { signOut } = useContext(AuthContext);
   const [token, setToken] = useState(null);
   const [dataMenu, setDataMenu] = useState([]);
-  const [isLoading, setLoading] = useState(true);
+  const [isLoadingMenu, setLoadingMenu] = useState(true);
 
   useEffect(() => {
     fetchToken()
@@ -31,35 +33,19 @@ const OrderScreen = () => {
 
     if (!token) return;
 
-    const options = {
-      headers: {
-        'accept': 'application/json',
-        'Authorization': 'Bearer ' + token
-      }
-    }
-
-    // Menus fetching
-    fetch('http://192.168.1.18/3proj_api/public/api/menus', options)
+    // Fetching menus
+    fecthMenus(token)
       .then((res) => {
-        if (!res.ok) {
-          if (res.status === 401) {
-            Alert.alert(
-              "Session expirée",
-              "Votre session a expiré, veuillez vous reconnecter.",
-              [{ text: "Ok", onPress: () => signOut() }]
-            );
-          }
-          throw Error(res.status);
+        if (res.status === 401) {
+          ExpiredSession(signOut);
+          return
         }
-        return res.json();
+        setDataMenu(res);
       })
-      .then((json) => setDataMenu(json))
-      .catch((err) => console.log(err))
-      .finally(() => setLoading(false));
-
+      .finally(() => setLoadingMenu(false));
   }, [token]);
 
-  if (isLoading) {
+  if (isLoadingMenu) {
     return (
       <ActivityIndicator size="large" color="#000000" />
     );
