@@ -7,8 +7,10 @@ import { AuthContext } from '../components/AuthContext';
 import ExpiredSession from '../components/alert/ExpiredSession';
 import fecthMenus from '../components/fetch/FetchMenus';
 import fetchFoods from '../components/fetch/FetchFoods';
+import fetchDrinks from '../components/fetch/FetchDrinks';
 import MenuTab from "./order_tabs/MenuTab";
 import FoodTab from "./order_tabs/FoodTab";
+import DrinkTab from "./order_tabs/DrinkTab";
 
 const fetchToken = async() => {
   let userToken = null;
@@ -27,8 +29,10 @@ const OrderScreen = () => {
   const [token, setToken] = useState(null);
   const [dataMenu, setDataMenu] = useState([]);
   const [dataFood, setDataFood] = useState([]);
+  const [dataDrink, setDataDrink] = useState([]);
   const [isLoadingMenu, setLoadingMenu] = useState(true);
   const [isLoadingFood, setLoadingFood] = useState(true);
+  const [isLoadingDrink, setLoadingDrink] = useState(true);
 
   useEffect(() => {
     fetchToken()
@@ -58,9 +62,20 @@ const OrderScreen = () => {
         setDataFood(res);
       })
       .finally(() => setLoadingFood(false));
+
+    // Fetching drinks
+    fetchDrinks(token)
+      .then((res) => {
+        if (res.status === 401) {
+          ExpiredSession(signOut);
+          return
+        }
+        setDataDrink(res);
+      })
+      .finally(() => setLoadingDrink(false));
   }, [token]);
 
-  if (isLoadingMenu && isLoadingFood) {
+  if (isLoadingMenu && isLoadingFood && isLoadingDrink) {
     return (
       <ActivityIndicator size="large" color="#000000" />
     );
@@ -86,7 +101,7 @@ const OrderScreen = () => {
         <FoodTab data={dataFood} />
       )}
       {activeTab === 2 && (
-        <Text>Tab 3</Text>
+        <DrinkTab data={dataDrink} />
       )}
     </SafeAreaView>
   );
