@@ -5,6 +5,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { AuthContext } from '../components/AuthContext';
 import ExpiredSession from '../components/alert/ExpiredSession';
+import fetchTokenValidity from '../components/fetch/FetchTokenValidity';
 import fetchMenus from '../components/fetch/FetchMenus';
 import fetchFoods from '../components/fetch/FetchFoods';
 import fetchDrinks from '../components/fetch/FetchDrinks';
@@ -27,6 +28,7 @@ const OrderScreen = () => {
   const [activeTab, setActiveTab] = useState(0);
   const { signOut } = useContext(AuthContext);
   const [token, setToken] = useState(null);
+  const [isValidToken, setValidToken] = useState(false);
   const [dataMenu, setDataMenu] = useState([]);
   const [dataFood, setDataFood] = useState([]);
   const [dataDrink, setDataDrink] = useState([]);
@@ -38,42 +40,34 @@ const OrderScreen = () => {
     fetchToken()
       .then((token) => setToken(token))
       .catch((err) => console.log(err));
-
     if (!token) return;
+
+    // Checking token validity. A token with less than 60*10 seconds left is considered as expired
+    fetchTokenValidity(token)
+      .then((res) => {
+        if (res.expireIn > 60 * 10) {
+          setValidToken(true);
+        } else {
+          ExpiredSession(signOut);
+        }
+      })
+    if (!isValidToken) return;
 
     // Fetching menus
     fetchMenus(token)
-      .then((res) => {
-        if (res.code === 401 && res.message === "Expired JWT Token") {
-          ExpiredSession(signOut);
-          return
-        }
-        setDataMenu(res);
-      })
+      .then((res) => setDataMenu(res))
       .finally(() => setLoadingMenu(false));
 
     // Fetching foods
     fetchFoods(token)
-      .then((res) => {
-        if (res.code === 401 && res.message === "Expired JWT Token") {
-          ExpiredSession(signOut);
-          return
-        }
-        setDataFood(res);
-      })
+      .then((res) => setDataFood(res))
       .finally(() => setLoadingFood(false));
 
     // Fetching drinks
     fetchDrinks(token)
-      .then((res) => {
-        if (res.code === 401 && res.message === "Expired JWT Token") {
-          ExpiredSession(signOut);
-          return
-        }
-        setDataDrink(res);
-      })
+      .then((res) => setDataDrink(res))
       .finally(() => setLoadingDrink(false));
-  }, [token]);
+  }, [token, isValidToken]);
 
   if (isLoadingMenu && isLoadingFood && isLoadingDrink) {
     return (
