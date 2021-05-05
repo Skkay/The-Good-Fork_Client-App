@@ -44,7 +44,7 @@ const OrderScreen = () => {
     // Fetching menus
     fetchMenus(token)
       .then((res) => {
-        if (res.status === 401) {
+        if (res.code === 401) {
           ExpiredSession(signOut);
           return
         }
@@ -55,7 +55,7 @@ const OrderScreen = () => {
     // Fetching foods
     fetchFoods(token)
       .then((res) => {
-        if (res.status === 401) {
+        if (res.code === 401) {
           ExpiredSession(signOut);
           return
         }
@@ -66,7 +66,7 @@ const OrderScreen = () => {
     // Fetching drinks
     fetchDrinks(token)
       .then((res) => {
-        if (res.status === 401) {
+        if (res.code === 401) {
           ExpiredSession(signOut);
           return
         }
