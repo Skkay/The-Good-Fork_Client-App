@@ -1,10 +1,7 @@
+import getFetchingOption from './options';
+
 const fecthMenus = (token) => {
-  const options = {
-    headers: {
-      'accept': 'application/json',
-      'Authorization': 'Bearer ' + token
-    }
-  }
+  const options = getFetchingOption(token);
 
   return fetch('http://192.168.1.18/3proj_api/public/api/menus', options)
     .then((res) => res.json())
