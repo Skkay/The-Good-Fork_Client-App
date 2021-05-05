@@ -6,7 +6,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AuthContext } from '../components/AuthContext';
 import ExpiredSession from '../components/alert/ExpiredSession';
 import fecthMenus from '../components/fetch/FetchMenus';
+import fetchFoods from '../components/fetch/FetchFoods';
 import MenuTab from "./order_tabs/MenuTab";
+import FoodTab from "./order_tabs/FoodTab";
 
 const fetchToken = async() => {
   let userToken = null;
@@ -24,7 +26,9 @@ const OrderScreen = () => {
   const { signOut } = useContext(AuthContext);
   const [token, setToken] = useState(null);
   const [dataMenu, setDataMenu] = useState([]);
+  const [dataFood, setDataFood] = useState([]);
   const [isLoadingMenu, setLoadingMenu] = useState(true);
+  const [isLoadingFood, setLoadingFood] = useState(true);
 
   useEffect(() => {
     fetchToken()
@@ -43,9 +47,20 @@ const OrderScreen = () => {
         setDataMenu(res);
       })
       .finally(() => setLoadingMenu(false));
+
+    // Fetching foods
+    fetchFoods(token)
+      .then((res) => {
+        if (res.status === 401) {
+          ExpiredSession(signOut);
+          return
+        }
+        setDataFood(res);
+      })
+      .finally(() => setLoadingFood(false));
   }, [token]);
 
-  if (isLoadingMenu) {
+  if (isLoadingMenu && isLoadingFood) {
     return (
       <ActivityIndicator size="large" color="#000000" />
     );
@@ -68,7 +83,7 @@ const OrderScreen = () => {
         <MenuTab data={dataMenu} />
       )}
       {activeTab === 1 && (
-        <Text>Tab 2</Text>
+        <FoodTab data={dataFood} />
       )}
       {activeTab === 2 && (
         <Text>Tab 3</Text>
