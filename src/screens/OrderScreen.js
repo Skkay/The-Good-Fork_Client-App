@@ -5,7 +5,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { AuthContext } from '../components/AuthContext';
 import ExpiredSession from '../components/alert/ExpiredSession';
-import fecthMenus from '../components/fetch/FetchMenus';
+import fetchMenus from '../components/fetch/FetchMenus';
 import fetchFoods from '../components/fetch/FetchFoods';
 import fetchDrinks from '../components/fetch/FetchDrinks';
 import MenuTab from "./order_tabs/MenuTab";
@@ -42,7 +42,7 @@ const OrderScreen = () => {
     if (!token) return;
 
     // Fetching menus
-    fecthMenus(token)
+    fetchMenus(token)
       .then((res) => {
         if (res.status === 401) {
           ExpiredSession(signOut);

@@ -1,6 +1,6 @@
 import getFetchingOption from './options';
 
-const fecthMenus = (token) => {
+const fetchMenus = (token) => {
   const options = getFetchingOption(token);
 
   return fetch('http://192.168.1.18/3proj_api/public/api/menus', options)
@@ -9,4 +9,4 @@ const fecthMenus = (token) => {
     .catch((err) => console.log(err.message));
 }
 
-export default fecthMenus;
+export default fetchMenus;
