@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View, ActivityIndicator } from "react-native";
 
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
 import { AuthContext } from '../components/AuthContext';
 import ExpiredSession from '../components/alert/ExpiredSession';
+import fetchToken from '../components/fetch/FetchToken';
 import fetchTokenValidity from '../components/fetch/FetchTokenValidity';
 import fetchMenus from '../components/fetch/FetchMenus';
 import fetchFoods from '../components/fetch/FetchFoods';
@@ -12,17 +11,6 @@ import fetchDrinks from '../components/fetch/FetchDrinks';
 import MenuTab from "./order_tabs/MenuTab";
 import FoodTab from "./order_tabs/FoodTab";
 import DrinkTab from "./order_tabs/DrinkTab";
-
-const fetchToken = async() => {
-  let userToken = null;
-  try {
-    userToken = await AsyncStorage.getItem("userToken");
-  } catch (e) {
-    console.log(e);
-  } finally {
-    return userToken;
-  }
-}
 
 const OrderScreen = () => {
   const [activeTab, setActiveTab] = useState(0);
