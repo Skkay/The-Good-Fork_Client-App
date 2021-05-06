@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View, ActivityIndicator } from "react-native";
+import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View, ActivityIndicator, Pressable } from "react-native";
 
 import { AuthContext } from '../components/AuthContext';
 import ExpiredSession from '../components/alert/ExpiredSession';
@@ -121,10 +121,12 @@ const OrderScreen = () => {
 
       {/* Display number of items and total price if at least one 'basket' is not empty */}
       {cartCount > 0 && (
-        <View>
-          <Text>
-            Count: {cartCount} {cartCount > 1 ? ("éléments") : ("élément")} - Total price: {cartPrice.toFixed(2)} €
-          </Text>
+        <View style={styles.cartView}>
+          <Pressable style={({ pressed }) => [styles.cartPressable, pressed && styles.cartPressablePressed]}>
+            <Text style={styles.cartText}>
+              Acheter {cartCount} {cartCount > 1 ? ("éléments") : ("élément")}. • {cartPrice.toFixed(2)} €
+            </Text>
+          </Pressable>
         </View>
       )}
     </SafeAreaView>
@@ -150,6 +152,24 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 18,
     marginVertical: 10
+  },
+  cartView: {
+    padding: 15,
+    backgroundColor: "#EAEAEA",
+    borderTopColor: "#ABABAB",
+    borderTopWidth: 2,
+  },
+  cartPressable: {
+    padding: 8,
+    backgroundColor: "#6FAFFF",
+    borderRadius: 10
+  },
+  cartPressablePressed: {
+    backgroundColor: "#2E68B0",
+  },
+  cartText: {
+    fontSize: 18,
+    textAlign: "center",
   }
 });
 
