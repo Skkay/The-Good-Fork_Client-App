@@ -23,9 +23,22 @@ const OrderScreen = () => {
   const [isLoadingMenu, setLoadingMenu] = useState(true);
   const [isLoadingFood, setLoadingFood] = useState(true);
   const [isLoadingDrink, setLoadingDrink] = useState(true);
+  const [cartMenu, setCartMenu] = useState([]);
+  const [cartFood, setCartFood] = useState([]);
+  const [cartDrink, setCartDrink] = useState([]);
 
   const handleItemPress = (tab, item) => {
-    console.log("item press: tab:", tab, "item:", item.id);
+    switch (tab) {
+      case 0:
+        setCartMenu([...cartMenu, item]);
+        break;
+      case 1:
+        setCartFood([...cartFood, item]);
+        break;
+      case 2:
+        setCartDrink([...cartDrink, item]);
+        break;
+    }
   }
 
   const handleItemLongPress = (tab, item) => {
