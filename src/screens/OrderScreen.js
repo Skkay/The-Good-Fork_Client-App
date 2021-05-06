@@ -24,6 +24,14 @@ const OrderScreen = () => {
   const [isLoadingFood, setLoadingFood] = useState(true);
   const [isLoadingDrink, setLoadingDrink] = useState(true);
 
+  const handleItemPress = (tab, item) => {
+    console.log("item press: tab:", tab, "item:", item.id);
+  }
+
+  const handleItemLongPress = (tab, item) => {
+    console.log("item long press: tab:", tab, "item:", item.id);
+  }
+
   useEffect(() => {
     fetchToken()
       .then((token) => setToken(token))
@@ -77,13 +85,13 @@ const OrderScreen = () => {
         </TouchableOpacity>
       </View>
       {activeTab === 0 && (
-        <MenuTab data={dataMenu} />
+        <MenuTab data={dataMenu} onItemPress={handleItemPress} onItemLongPress={handleItemLongPress} />
       )}
       {activeTab === 1 && (
-        <FoodTab data={dataFood} />
+        <FoodTab data={dataFood} onItemPress={handleItemPress} onItemLongPress={handleItemLongPress} />
       )}
       {activeTab === 2 && (
-        <DrinkTab data={dataDrink} />
+        <DrinkTab data={dataDrink} onItemPress={handleItemPress} onItemLongPress={handleItemLongPress} />
       )}
     </SafeAreaView>
   );

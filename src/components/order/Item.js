@@ -1,16 +1,18 @@
 import React from "react";
 import { Text, View, StyleSheet, ScrollView, Pressable } from "react-native";
 
-const Item = ({ item }) => (
-  <View style={styles.item}>
+const Item = ({ item, tab, onItemPress, onItemLongPress }) => {
+  return (
+    <View style={styles.item}>
     <ScrollView style={styles.scrollView} horizontal={true}>
       <Text style={styles.title}>{item.name}</Text>
     </ScrollView>
-    <Pressable style={({ pressed }) => [styles.pressable, pressed && styles.pressablePressed]}>
+    <Pressable style={({ pressed }) => [styles.pressable, pressed && styles.pressablePressed]} onPress={() => onItemPress(tab, item)} onLongPress={() => onItemLongPress(tab, item)}>
       <Text style={styles.price}>{Number.parseFloat(item.price).toFixed(2)} €</Text>
     </Pressable>
   </View>
-);
+  );
+};
 
 const styles = StyleSheet.create({
   item: {

@@ -3,11 +3,14 @@ import { FlatList } from "react-native";
 
 import Item from "../../components/order/Item";
 
-const MenuTab = ({ data }) => {
+const MenuTab = ({ data, onItemPress, onItemLongPress }) => {
   const renderItem = ({ item }) => {
     return (
       <Item 
         item={item}
+        tab={0}
+        onItemPress={onItemPress}
+        onItemLongPress={onItemLongPress}
       />
     );
   }
