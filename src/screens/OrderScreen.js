@@ -119,16 +119,14 @@ const OrderScreen = () => {
         <DrinkTab data={dataDrink} onItemPress={handleItemPress} onItemLongPress={handleItemLongPress} />
       )}
 
-      {/* Display number of items and total price if at least one 'basket' is not empty */}
-      {cartCount > 0 && (
-        <View style={styles.cartView}>
-          <Pressable style={({ pressed }) => [styles.cartPressable, pressed && styles.cartPressablePressed]}>
-            <Text style={styles.cartText}>
-              Acheter {cartCount} {cartCount > 1 ? ("éléments") : ("élément")}. • {cartPrice.toFixed(2)} €
-            </Text>
-          </Pressable>
-        </View>
-      )}
+      {/* Display number of items and total price. Disable Pressable if cart is empty */}
+      <View style={styles.cartView}>
+        <Pressable style={({ pressed }) => [styles.cartPressable, cartCount < 1 && styles.cartPressableDisable, (pressed && cartCount > 0) && styles.cartPressablePressed]} disabled={cartCount < 1}>
+          <Text style={styles.cartText}>
+            Acheter {cartCount} {cartCount > 1 ? ("éléments") : ("élément")}. • {cartPrice.toFixed(2)} €
+          </Text>
+        </Pressable>
+      </View>
     </SafeAreaView>
   );
 };
@@ -163,6 +161,9 @@ const styles = StyleSheet.create({
     padding: 8,
     backgroundColor: "#6FAFFF",
     borderRadius: 10
+  },
+  cartPressableDisable: {
+    backgroundColor: "#A8A8A8",
   },
   cartPressablePressed: {
     backgroundColor: "#2E68B0",
