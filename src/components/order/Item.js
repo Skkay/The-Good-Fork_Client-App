@@ -1,31 +1,42 @@
 import React from "react";
-import { Text, View, StyleSheet, ScrollView } from "react-native";
+import { Text, View, StyleSheet, ScrollView, Pressable } from "react-native";
 
 const Item = ({ item }) => (
   <View style={styles.item}>
-    <ScrollView horizontal={true}>
+    <ScrollView style={styles.scrollView} horizontal={true}>
       <Text style={styles.title}>{item.name}</Text>
     </ScrollView>
-    <Text style={styles.price}>{Number.parseFloat(item.price).toFixed(2)} €</Text>
+    <Pressable style={styles.pressable}>
+      <Text style={styles.price}>{Number.parseFloat(item.price).toFixed(2)} €</Text>
+    </Pressable>
   </View>
 );
 
 const styles = StyleSheet.create({
   item: {
-    padding: 20,
+    padding: 10,
     marginVertical: 8,
-    marginHorizontal: 16,
-    backgroundColor: "#F9C2FF",
+    marginHorizontal: 10,
     flexDirection: "row",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+  },
+  scrollView: {
+    borderBottomWidth: 1,
+    borderBottomColor: "#7D7D7D",
+    marginRight: 10,
+  },
+  pressable: {
+    backgroundColor: "#A16DFF",
+    paddingHorizontal: 5,
+    borderRadius: 5,
   },
   title: {
     fontSize: 22,
   },
   price: {
     fontSize: 22,
-    paddingLeft: 20
-  }
+    color: "#ffffff",
+  },
 });
 
 export default Item;
