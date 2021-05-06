@@ -106,6 +106,19 @@ const OrderScreen = () => {
       {activeTab === 2 && (
         <DrinkTab data={dataDrink} onItemPress={handleItemPress} onItemLongPress={handleItemLongPress} />
       )}
+
+      {/* Display number of items and total price if at least one 'basket' is not empty */}
+      {(cartMenu.length > 0 || cartFood.length > 0 || cartDrink.length > 0) && (
+      <View>
+        <Text>
+          Count: {cartMenu.length + cartFood.length + cartDrink.length} - 
+          Total price: {(
+            cartMenu.reduce((total, item) => total + (item.price || 0), 0) + 
+            cartFood.reduce((total, item) => total + (item.price || 0), 0) + 
+            cartDrink.reduce((total, item) => total + (item.price || 0), 0)).toFixed(2)} €
+          </Text>
+      </View>
+      )}
     </SafeAreaView>
   );
 };
