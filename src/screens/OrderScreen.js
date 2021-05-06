@@ -27,6 +27,9 @@ const OrderScreen = () => {
   const [cartFood, setCartFood] = useState([]);
   const [cartDrink, setCartDrink] = useState([]);
 
+  const [cartCount, setCartCount] = useState(0);
+  const [cartPrice, setCartPrice] = useState(0);
+
   const handleItemPress = (tab, item) => {
     switch (tab) {
       case 0:
@@ -78,6 +81,15 @@ const OrderScreen = () => {
       .finally(() => setLoadingDrink(false));
   }, [token, isValidToken]);
 
+  useEffect(() => {
+    setCartCount(cartMenu.length + cartFood.length + cartDrink.length);
+    setCartPrice(
+      cartMenu.reduce((total, item) => total + (item.price || 0), 0) + 
+      cartFood.reduce((total, item) => total + (item.price || 0), 0) + 
+      cartDrink.reduce((total, item) => total + (item.price || 0), 0)
+    );
+  }, [cartMenu, cartFood, cartDrink]);
+
   if (isLoadingMenu && isLoadingFood && isLoadingDrink) {
     return (
       <ActivityIndicator size="large" color="#000000" />
@@ -108,16 +120,12 @@ const OrderScreen = () => {
       )}
 
       {/* Display number of items and total price if at least one 'basket' is not empty */}
-      {(cartMenu.length > 0 || cartFood.length > 0 || cartDrink.length > 0) && (
-      <View>
-        <Text>
-          Count: {cartMenu.length + cartFood.length + cartDrink.length} - 
-          Total price: {(
-            cartMenu.reduce((total, item) => total + (item.price || 0), 0) + 
-            cartFood.reduce((total, item) => total + (item.price || 0), 0) + 
-            cartDrink.reduce((total, item) => total + (item.price || 0), 0)).toFixed(2)} €
+      {cartCount > 0 && (
+        <View>
+          <Text>
+            Count: {cartCount} {cartCount > 1 ? ("éléments") : ("élément")} - Total price: {cartPrice.toFixed(2)} €
           </Text>
-      </View>
+        </View>
       )}
     </SafeAreaView>
   );
