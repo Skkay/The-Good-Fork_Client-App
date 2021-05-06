@@ -6,7 +6,7 @@ const Item = ({ item }) => (
     <ScrollView style={styles.scrollView} horizontal={true}>
       <Text style={styles.title}>{item.name}</Text>
     </ScrollView>
-    <Pressable style={styles.pressable}>
+    <Pressable style={({ pressed }) => [styles.pressable, pressed && styles.pressablePressed]}>
       <Text style={styles.price}>{Number.parseFloat(item.price).toFixed(2)} €</Text>
     </Pressable>
   </View>
@@ -29,6 +29,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#A16DFF",
     paddingHorizontal: 5,
     borderRadius: 5,
+  },
+  pressablePressed: {
+    backgroundColor: "#D4BDFE",
   },
   title: {
     fontSize: 22,
