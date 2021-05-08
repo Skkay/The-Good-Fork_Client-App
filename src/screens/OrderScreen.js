@@ -11,6 +11,7 @@ import fetchDrinks from '../components/fetch/FetchDrinks';
 import MenuTab from "./order_tabs/MenuTab";
 import FoodTab from "./order_tabs/FoodTab";
 import DrinkTab from "./order_tabs/DrinkTab";
+import CartModal from "../components/order/CartModal";
 
 const OrderScreen = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -29,6 +30,8 @@ const OrderScreen = () => {
 
   const [cartCount, setCartCount] = useState(0);
   const [cartPrice, setCartPrice] = useState(0);
+
+  const [modalVisible, setModalVisible] = useState(false);
 
   const handleItemPress = (tab, item) => {
     switch (tab) {
@@ -98,6 +101,16 @@ const OrderScreen = () => {
 
   return (
     <SafeAreaView style={{ flex: 1}}>
+      <CartModal 
+        modalVisible={modalVisible}
+        onRequestClose={() => setModalVisible(false)}
+        onCloseButtonPress={() => setModalVisible(false)}
+        cartCount={cartCount}
+        cartPrice={cartPrice}
+        cartMenu={cartMenu}
+        cartFood={cartFood}
+        cartDrink={cartDrink} />
+        
       <View style={styles.header}>
         <TouchableOpacity style={[styles.headerButton, activeTab === 0 && styles.headerButtonActive]} onPress={() => setActiveTab(0)}>
           <Text style={styles.headerButtonText}>Menus</Text>
