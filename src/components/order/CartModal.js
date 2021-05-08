@@ -41,7 +41,7 @@ const CartModal = ({ modalVisible, onRequestClose, onCloseButtonPress, onCartRem
             <Text style={styles.textButton}>Fermer</Text>
           </Pressable>
           <Pressable
-            style={styles.button}>
+            style={({ pressed }) => [styles.button, cartCount < 1 && styles.buttonDisable, (pressed && cartCount > 0) && styles.buttonPressed]} disabled={cartCount < 1}>
             <Text style={styles.textButton}>Acheter</Text>
           </Pressable>
         </View>
@@ -86,6 +86,12 @@ const styles = StyleSheet.create({
     margin: 10,
     elevation: 2,
     backgroundColor: "#2196F3",
+  },
+  buttonDisable: {
+    backgroundColor: "#A8A8A8",
+  },
+  buttonPressed: {
+    backgroundColor: "#2E68B0",
   },
   textButton: {
     color: "#FFFFFF",
