@@ -51,6 +51,10 @@ const OrderScreen = () => {
     console.log("item long press: tab:", tab, "item:", item.id);
   }
 
+  const handleCartBannerPress = () => {
+    setModalVisible(true);
+  }
+
   useEffect(() => {
     fetchToken()
       .then((token) => setToken(token))
@@ -134,7 +138,7 @@ const OrderScreen = () => {
 
       {/* Display number of items and total price. Disable Pressable if cart is empty */}
       <View style={styles.cartView}>
-        <Pressable style={({ pressed }) => [styles.cartPressable, cartCount < 1 && styles.cartPressableDisable, (pressed && cartCount > 0) && styles.cartPressablePressed]} disabled={cartCount < 1}>
+        <Pressable style={({ pressed }) => [styles.cartPressable, cartCount < 1 && styles.cartPressableDisable, (pressed && cartCount > 0) && styles.cartPressablePressed]} disabled={cartCount < 1} onPress={handleCartBannerPress}>
           <Text style={styles.cartText}>
             Acheter {cartCount} {cartCount > 1 ? ("éléments") : ("élément")}. • {cartPrice.toFixed(2)} €
           </Text>
