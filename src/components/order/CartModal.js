@@ -4,7 +4,7 @@ import { Text, StyleSheet, Modal, Pressable, View, SectionList  } from "react-na
 import CartSectionItem from "./CartSectionItem";
 import CartSectionHeader from "./CartSectionHeader";
 
-const CartModal = ({ modalVisible, onRequestClose, onCloseButtonPress, cartCount, cartPrice, cartMenu, cartFood, cartDrink }) => {
+const CartModal = ({ modalVisible, onRequestClose, onCloseButtonPress, onCartRemoveButtonPress, cartCount, cartPrice, cartMenu, cartFood, cartDrink }) => {
   const cartData = [
     {
       title: 0,
@@ -31,7 +31,7 @@ const CartModal = ({ modalVisible, onRequestClose, onCloseButtonPress, cartCount
         <SectionList 
           sections={cartData}
           keyExtractor={(item, index) => item + index}
-          renderItem={({ item }) => <CartSectionItem item={item} />}
+          renderItem={({ item, section: { title } }) => <CartSectionItem section={title} item={item} onCartRemoveButtonPress={onCartRemoveButtonPress} />}
           renderSectionHeader={({ section: { title } }) => <CartSectionHeader title={title} />} />
         <Pressable
           style={styles.button}

@@ -55,6 +55,10 @@ const OrderScreen = () => {
     setModalVisible(true);
   }
 
+  const handleCartRemoveButtonPress = (section, item) => {
+    console.log("Cart remove button pressed: section:", section, "item:", item.id)
+  }
+
   useEffect(() => {
     fetchToken()
       .then((token) => setToken(token))
@@ -109,6 +113,7 @@ const OrderScreen = () => {
         modalVisible={modalVisible}
         onRequestClose={() => setModalVisible(false)}
         onCloseButtonPress={() => setModalVisible(false)}
+        onCartRemoveButtonPress={handleCartRemoveButtonPress}
         cartCount={cartCount}
         cartPrice={cartPrice}
         cartMenu={cartMenu}

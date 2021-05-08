@@ -1,14 +1,15 @@
 import React from "react";
 import { Text, View, StyleSheet, ScrollView, Pressable } from "react-native";
 
-const CartSectionItem = ({ item }) => {
+const CartSectionItem = ({ section, item, onCartRemoveButtonPress }) => {
   return (
     <View style={styles.item}>
       <ScrollView horizontal={true}>
         <Text>• {item.name}</Text>
       </ScrollView>
       <Pressable
-        style={styles.button}>
+        style={styles.button}
+        onPress={() => onCartRemoveButtonPress(section, item)}>
         <Text style={styles.textButton}>−</Text>
       </Pressable>
     </View>
