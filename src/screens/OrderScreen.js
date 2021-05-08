@@ -56,7 +56,26 @@ const OrderScreen = () => {
   }
 
   const handleCartRemoveButtonPress = (section, item) => {
-    console.log("Cart remove button pressed: section:", section, "item:", item.id)
+    switch (section) {
+      case 0:
+        const newCartMenu = [...cartMenu];
+        const removeIndexMenu = newCartMenu.map(menu => menu.id).indexOf(item.id);
+        newCartMenu.splice(removeIndexMenu, 1);
+        setCartMenu(newCartMenu);
+        break;
+      case 1:
+        const newCartFood = [...cartFood];
+        const removeIndexFood = newCartFood.map(food => food.id).indexOf(item.id);
+        newCartFood.splice(removeIndexFood, 1);
+        setCartFood(newCartFood);
+        break;
+      case 2:
+        const newCartDrink = [...cartDrink];
+        const removeIndexDrink = newCartDrink.map(drink => drink.id).indexOf(item.id);
+        newCartDrink.splice(removeIndexDrink, 1);
+        setCartDrink(newCartDrink);
+        break;
+    }
   }
 
   useEffect(() => {
