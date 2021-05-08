@@ -3,7 +3,11 @@ import { Text, StyleSheet } from "react-native";
 
 const CartSectionHeader = ({ title }) => {
   return (
-    <Text style={styles.header}>{title}</Text>
+    <Text style={styles.header}>
+      {title === 0 && ("Menus")}
+      {title === 1 && ("Plats")}
+      {title === 2 && ("Boisson")}
+    </Text>
   );
 };
 

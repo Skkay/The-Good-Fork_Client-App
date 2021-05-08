@@ -7,15 +7,15 @@ import CartSectionHeader from "./CartSectionHeader";
 const CartModal = ({ modalVisible, onRequestClose, onCloseButtonPress, cartCount, cartPrice, cartMenu, cartFood, cartDrink }) => {
   const cartData = [
     {
-      title: "Menus",
+      title: 0,
       data: cartMenu
     },
     {
-      title: "Plats",
+      title: 1,
       data: cartFood
     },
     {
-      title: "Boissons",
+      title: 2,
       data: cartDrink
     }
   ]
