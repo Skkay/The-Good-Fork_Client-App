@@ -6,7 +6,7 @@ const CartSectionHeader = ({ title }) => {
     <Text style={styles.header}>
       {title === 0 && ("Menus")}
       {title === 1 && ("Plats")}
-      {title === 2 && ("Boisson")}
+      {title === 2 && ("Boissons")}
     </Text>
   );
 };
