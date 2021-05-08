@@ -33,11 +33,18 @@ const CartModal = ({ modalVisible, onRequestClose, onCloseButtonPress, onCartRem
           keyExtractor={(item, index) => item + index}
           renderItem={({ item, section: { title } }) => <CartSectionItem section={title} item={item} onCartRemoveButtonPress={onCartRemoveButtonPress} />}
           renderSectionHeader={({ section: { title } }) => <CartSectionHeader title={title} />} />
-        <Pressable
-          style={styles.button}
-          onPress={onCloseButtonPress}>
-          <Text style={styles.textButton}>Fermer</Text>
-        </Pressable>
+        
+        <View style={styles.buttonGroup}>
+          <Pressable
+            style={styles.button}
+            onPress={onCloseButtonPress}>
+            <Text style={styles.textButton}>Fermer</Text>
+          </Pressable>
+          <Pressable
+            style={styles.button}>
+            <Text style={styles.textButton}>Acheter</Text>
+          </Pressable>
+        </View>
       </View>
     </Modal>
   );
@@ -69,6 +76,10 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
 
+  buttonGroup: {
+    flexDirection: "row",
+    justifyContent: "space-between"
+  },
   button: {
     borderRadius: 5,
     padding: 10,
