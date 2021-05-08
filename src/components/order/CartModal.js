@@ -38,7 +38,7 @@ const CartModal = ({ modalVisible, onRequestClose, onCloseButtonPress, onCartRem
           <Pressable
             style={styles.button}
             onPress={onCloseButtonPress}>
-            <Text style={styles.textButton}>Fermer</Text>
+            <Text style={styles.textButton}>Retour</Text>
           </Pressable>
           <Pressable
             style={({ pressed }) => [styles.button, cartCount < 1 && styles.buttonDisable, (pressed && cartCount > 0) && styles.buttonPressed]} disabled={cartCount < 1}>
