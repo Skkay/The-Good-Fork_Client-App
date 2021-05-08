@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, StyleSheet, Modal, Pressable, View, SectionList  } from "react-native";
+import { Text, StyleSheet, Modal, Pressable, View, SectionList, TextInput  } from "react-native";
 
 import CartSectionItem from "./CartSectionItem";
 import CartSectionHeader from "./CartSectionHeader";
@@ -33,6 +33,11 @@ const CartModal = ({ modalVisible, onRequestClose, onCloseButtonPress, onCartRem
           keyExtractor={(item, index) => item + index}
           renderItem={({ item, section: { title } }) => <CartSectionItem section={title} item={item} onCartRemoveButtonPress={onCartRemoveButtonPress} />}
           renderSectionHeader={({ section: { title } }) => <CartSectionHeader title={title} />} />
+
+        <TextInput 
+          style={styles.textInput} 
+          placeholder="Saisir des informations complémentaires"
+        />
         
         <View style={styles.buttonGroup}>
           <Pressable
@@ -104,7 +109,15 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 18,
     fontWeight: "bold",
-  }
+  },
+
+  textInput: {
+    borderWidth: 1,
+    marginHorizontal: 5,
+    paddingHorizontal: 5,
+    marginTop: 5,
+    borderRadius: 5
+  },
 });
 
 export default CartModal;
