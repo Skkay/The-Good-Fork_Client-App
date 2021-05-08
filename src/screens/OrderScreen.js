@@ -114,7 +114,7 @@ const OrderScreen = () => {
         cartMenu={cartMenu}
         cartFood={cartFood}
         cartDrink={cartDrink} />
-        
+
       <View style={styles.header}>
         <TouchableOpacity style={[styles.headerButton, activeTab === 0 && styles.headerButtonActive]} onPress={() => setActiveTab(0)}>
           <Text style={styles.headerButtonText}>Menus</Text>
@@ -140,7 +140,7 @@ const OrderScreen = () => {
       <View style={styles.cartView}>
         <Pressable style={({ pressed }) => [styles.cartPressable, cartCount < 1 && styles.cartPressableDisable, (pressed && cartCount > 0) && styles.cartPressablePressed]} disabled={cartCount < 1} onPress={handleCartBannerPress}>
           <Text style={styles.cartText}>
-            Acheter {cartCount} {cartCount > 1 ? ("éléments") : ("élément")}. • {cartPrice.toFixed(2)} €
+            Voir le panier ({cartCount}). • {cartPrice.toFixed(2)} €
           </Text>
         </Pressable>
       </View>
