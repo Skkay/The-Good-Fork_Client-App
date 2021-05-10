@@ -4,7 +4,7 @@ import { Text, StyleSheet, Modal, Pressable, View, SectionList, TextInput  } fro
 import CartSectionItem from "./CartSectionItem";
 import CartSectionHeader from "./CartSectionHeader";
 
-const CartModal = ({ modalVisible, onRequestClose, onCloseButtonPress, onCartRemoveButtonPress, cartCount, cartPrice, cartMenu, cartFood, cartDrink }) => {
+const CartModal = ({ navigation, modalVisible, onRequestClose, onCloseButtonPress, onCartRemoveButtonPress, cartCount, cartPrice, cartMenu, cartFood, cartDrink }) => {
   const cartData = [
     {
       title: 0,
@@ -19,6 +19,11 @@ const CartModal = ({ modalVisible, onRequestClose, onCloseButtonPress, onCartRem
       data: cartDrink
     }
   ]
+
+  const handleBuyButtonClick = () => {
+    onCloseButtonPress();
+    navigation.navigate('OrderType', {cartData: cartData});
+  }
 
   return (
     <Modal
@@ -46,7 +51,7 @@ const CartModal = ({ modalVisible, onRequestClose, onCloseButtonPress, onCartRem
             <Text style={styles.textButton}>Retour</Text>
           </Pressable>
           <Pressable
-            style={({ pressed }) => [styles.button, cartCount < 1 && styles.buttonDisable, (pressed && cartCount > 0) && styles.buttonPressed]} disabled={cartCount < 1}>
+            style={({ pressed }) => [styles.button, cartCount < 1 && styles.buttonDisable, (pressed && cartCount > 0) && styles.buttonPressed]} disabled={cartCount < 1} onPress={handleBuyButtonClick}>
             <Text style={styles.textButton}>Payer</Text>
           </Pressable>
         </View>
