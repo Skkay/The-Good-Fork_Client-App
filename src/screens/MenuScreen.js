@@ -1,28 +1,20 @@
 import React, { useEffect, useState, useContext } from "react";
-import { ActivityIndicator, Alert, FlatList, SafeAreaView, StyleSheet } from "react-native";
-
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { ActivityIndicator, FlatList, SafeAreaView, StyleSheet } from "react-native";
 
 import { AuthContext } from '../components/AuthContext';
+import ExpiredSession from '../components/alert/ExpiredSession';
+import fetchToken from '../components/fetch/FetchToken';
+import fetchTokenValidity from '../components/fetch/FetchTokenValidity';
+import fetchMenus from '../components/fetch/FetchMenus';
 import Item from "../components/Item";
 import DetailMenuModal from "../components/DetailMenuModal";
-
-const fetchToken = async() => {
-  let userToken = null;
-  try {
-    userToken = await AsyncStorage.getItem("userToken");
-  } catch (e) {
-    console.log(e);
-  } finally {
-    return userToken;
-  }
-}
 
 const MenuScreen = () => {
   const { signOut } = useContext(AuthContext);
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const [token, setToken] = useState(null);
+  const [isValidToken, setValidToken] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [refreshing, setRefreshing] = useState(false);
@@ -31,37 +23,24 @@ const MenuScreen = () => {
     fetchToken()
       .then((token) => setToken(token))
       .catch((err) => console.log(err));
-
     if (!token) return;
 
-    const options = {
-      headers: {
-        'accept': 'application/json',
-        'Authorization': 'Bearer ' + token
+    // Checking token validity
+    fetchTokenValidity(token)
+    .then((res) => {
+      if (res.valid) {
+        setValidToken(true);
+      } else {
+        ExpiredSession(signOut);
       }
-    }
+    })
+    if (!isValidToken) return;
 
-    fetch('http://192.168.1.18/3proj_api/public/api/menus', options)
-      .then((res) => {
-        if (!res.ok) {
-          if (res.status === 401) {
-            Alert.alert(
-              "Session expirée",
-              "Votre session a expiré, veuillez vous reconnecter.",
-              [{ text: "Ok", onPress: () => signOut() }]
-            );
-          }
-          throw Error(res.status);
-        }
-        return res.json();
-      })
-      .then((json) => setData(json))
-      .catch((err) => console.log(err))
-      .finally(() => {
-        setLoading(false); 
-        setRefreshing(false)
-      });
-  }, [token, refreshing]);
+    // Fetching menus
+    fetchMenus(token)
+      .then((res) => setData(res))
+      .finally(() => setLoading(false));
+  }, [token, isValidToken, refreshing]);
 
   const onItemClick = (item) => {
     setSelectedItem(item);
