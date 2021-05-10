@@ -13,7 +13,7 @@ import FoodTab from "./order_tabs/FoodTab";
 import DrinkTab from "./order_tabs/DrinkTab";
 import CartModal from "../components/order/CartModal";
 
-const OrderScreen = () => {
+const OrderScreen = ({ navigation }) => {
   const [activeTab, setActiveTab] = useState(0);
   const { signOut } = useContext(AuthContext);
   const [token, setToken] = useState(null);
@@ -129,6 +129,7 @@ const OrderScreen = () => {
   return (
     <SafeAreaView style={{ flex: 1}}>
       <CartModal 
+        navigation={navigation}
         modalVisible={modalVisible}
         onRequestClose={() => setModalVisible(false)}
         onCloseButtonPress={() => setModalVisible(false)}
