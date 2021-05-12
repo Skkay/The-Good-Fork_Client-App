@@ -11,12 +11,14 @@ const OrderTypeScreen = ({ route, navigation }) => {
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
+  const [isDateValid, setDateValid] = useState(false);
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setShow(Platform.OS === 'ios');
     setDate(currentDate);
     console.log(currentDate);
+    setDateValid(currentDate < new Date());
   };
 
   const showMode = (currentMode) => {
@@ -57,6 +59,10 @@ const OrderTypeScreen = ({ route, navigation }) => {
             </Pressable>
             <Text style={styles.dateText}>À {date.getHours()}:{date.getMinutes()}</Text>
           </View>
+
+          <Pressable style={[styles.nextButton, isDateValid && styles.nextButtonDisable]} onPress={() => console.log("next")} disabled={isDateValid}>
+            <Text style={styles.buttonSelectDateTimeText}>Suivant</Text>
+          </Pressable>
 
           {show && (
             <DateTimePicker
@@ -113,6 +119,16 @@ const styles = StyleSheet.create({
   },
   dateText: {
     textAlign: "center",
+  },
+
+  nextButton: {
+    backgroundColor: "#D599FF",
+    marginTop: 10,
+    marginHorizontal: 30,
+    paddingVertical: 5
+  },
+  nextButtonDisable: {
+    backgroundColor: "#A8A8A8",
   }
 });
 
