@@ -48,14 +48,14 @@ const OrderTypeScreen = ({ route, navigation }) => {
             <Pressable style={styles.buttonSelectDateTime} onPress={showDatepicker}>
               <Text style={styles.buttonSelectDateTimeText}>Sélectionner la date</Text>
             </Pressable>
-            <Text style={styles.dateText}>{date.toLocaleDateString()}</Text>
+            <Text style={styles.dateText}>Le {date.getDate().toString().padStart(2, '0')}/{(date.getMonth() + 1).toString().padStart(2, '0')}</Text>
           </View>
 
           <View style={styles.selectDateTime}>
             <Pressable style={styles.buttonSelectDateTime} onPress={showTimepicker}>
               <Text style={styles.buttonSelectDateTimeText}>Sélectionner l'heure</Text>
             </Pressable>
-            <Text style={styles.dateText}>{date.toLocaleTimeString()}</Text>
+            <Text style={styles.dateText}>À {date.getHours()}:{date.getMinutes()}</Text>
           </View>
 
           {show && (
