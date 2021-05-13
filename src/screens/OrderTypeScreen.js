@@ -1,10 +1,18 @@
-import React, { useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Pressable, SafeAreaView, Text, StyleSheet, View } from "react-native";
 
 import DateTimePicker from '@react-native-community/datetimepicker';
 
+import { AuthContext } from '../components/AuthContext';
+import ExpiredSession from '../components/alert/ExpiredSession';
+import fetchToken from '../components/fetch/FetchToken';
+import fetchTokenValidity from '../components/fetch/FetchTokenValidity';
 const OrderTypeScreen = ({ route, navigation }) => {
   const { cartData } = route.params
+  const { signOut } = useContext(AuthContext);
+  const [token, setToken] = useState(null);
+  const [isValidToken, setValidToken] = useState(false);
+
   const [selectedButton, setSelectedButton] = useState(null);
 
   /* DateTimePicker */
@@ -33,6 +41,23 @@ const OrderTypeScreen = ({ route, navigation }) => {
   const showTimepicker = () => {
     showMode('time');
   };
+
+  useEffect(() => {
+    fetchToken()
+      .then((token) => setToken(token))
+      .catch((err) => console.log(err));
+    if (!token) return;
+
+    fetchTokenValidity(token)
+      .then((res) => {
+        if (res.valid) {
+          setValidToken(true);
+        } else {
+          ExpiredSession(signOut);
+        }
+      })
+    if (!isValidToken) return;
+  }, [token, isValidToken]);
 
   return (
     <SafeAreaView>
