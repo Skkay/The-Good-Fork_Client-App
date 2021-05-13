@@ -57,7 +57,7 @@ const OrderTypeScreen = ({ route, navigation }) => {
             <Pressable style={styles.buttonSelectDateTime} onPress={showTimepicker}>
               <Text style={styles.buttonSelectDateTimeText}>Sélectionner l'heure</Text>
             </Pressable>
-            <Text style={styles.dateText}>À {date.getHours()}:{date.getMinutes()}</Text>
+            <Text style={styles.dateText}>À {date.getHours().toString().padStart(2, '0')}:{date.getMinutes().toString().padStart(2, '0')}</Text>
           </View>
 
           <Pressable style={[styles.nextButton, isDateValid && styles.nextButtonDisable]} onPress={() => console.log("next")} disabled={isDateValid}>
