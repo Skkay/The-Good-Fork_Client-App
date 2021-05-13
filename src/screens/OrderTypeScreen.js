@@ -7,6 +7,8 @@ import { AuthContext } from '../components/AuthContext';
 import ExpiredSession from '../components/alert/ExpiredSession';
 import fetchToken from '../components/fetch/FetchToken';
 import fetchTokenValidity from '../components/fetch/FetchTokenValidity';
+import postOrder from '../components/fetch/PostOrder';
+
 const OrderTypeScreen = ({ route, navigation }) => {
   const { cartData } = route.params
   const { signOut } = useContext(AuthContext);
@@ -41,6 +43,13 @@ const OrderTypeScreen = ({ route, navigation }) => {
   const showTimepicker = () => {
     showMode('time');
   };
+
+
+  const handlePlaceTakeOutOrder = () => {
+    postOrder(token, cartData, true, date)
+      .then((res) => console.log("order taken"))
+      .catch((err) => console.log("order error"));
+  }
 
   useEffect(() => {
     fetchToken()
@@ -85,8 +94,8 @@ const OrderTypeScreen = ({ route, navigation }) => {
             <Text style={styles.dateText}>À {date.getHours().toString().padStart(2, '0')}:{date.getMinutes().toString().padStart(2, '0')}</Text>
           </View>
 
-          <Pressable style={[styles.nextButton, isDateValid && styles.nextButtonDisable]} onPress={() => console.log("next")} disabled={isDateValid}>
-            <Text style={styles.buttonSelectDateTimeText}>Suivant</Text>
+          <Pressable style={[styles.nextButton, isDateValid && styles.nextButtonDisable]} onPress={handlePlaceTakeOutOrder} disabled={isDateValid}>
+            <Text style={styles.buttonSelectDateTimeText}>Valider la commande</Text>
           </Pressable>
 
           {show && (
