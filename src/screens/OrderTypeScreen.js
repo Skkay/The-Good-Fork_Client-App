@@ -46,7 +46,7 @@ const OrderTypeScreen = ({ route, navigation }) => {
 
 
   const handlePlaceTakeOutOrder = () => {
-    postOrder(token, cartData, true, date)
+    postOrder(token, cartData, false, date)
       .then((res) => console.log("order taken"))
       .catch((err) => console.log("order error"));
   }
