@@ -15,6 +15,7 @@ import FoodScreen from "./src/screens/FoodScreen";
 import DrinkScreen from "./src/screens/DrinkScreen";
 import OrderScreen from "./src/screens/OrderScreen";
 import OrderTypeScreen from "./src/screens/OrderTypeScreen";
+import MyOrdersScreen from "./src/screens/MyOrdersScreen";
 
 const App = () => {
   const Stack = createStackNavigator();
@@ -23,6 +24,7 @@ const App = () => {
     isLoading: true,
     userEmail: null,
     userToken: null,
+    userId: null,
   };
 
   const loginReducer = (pervState, action) => {
@@ -38,6 +40,7 @@ const App = () => {
           ...pervState,
           userEmail: action.email,
           userToken: action.token,
+          userId: action.id,
           isLoading: false,
         };
       case "LOGOUT":
@@ -45,6 +48,7 @@ const App = () => {
           ...pervState,
           userEmail: null,
           userToken: null,
+          userId: null,
           isLoading: false,
         };
       case "REGISTER":
@@ -52,6 +56,7 @@ const App = () => {
           ...pervState,
           userEmail: action.email,
           userToken: action.token,
+          userId: action.id,
           isLoading: false,
         };
     }
@@ -76,10 +81,12 @@ const App = () => {
         .then((res) => {
           userToken = res.data.token;
           userTokenExp = jwt_decode(userToken).exp.toString();
-          console.log("connected\nToken:", userToken);
+          userId = res.data.data.id.toString();
+          console.log("connected\nToken:", userToken, "// ID:", userId);
           try {
             AsyncStorage.setItem("userToken", userToken);
             AsyncStorage.setItem("userTokenExp", userTokenExp);
+            AsyncStorage.setItem("userId", userId);
           } catch (e) {
             console.log(e);
           }
@@ -87,7 +94,7 @@ const App = () => {
         .catch((err) => {
           console.log(err);
         });
-      dispatch({ type: "LOGIN", email: userEmail, token: userToken });
+      dispatch({ type: "LOGIN", email: userEmail, token: userToken, id: userId });
     },
 
     // Remove stored token
@@ -95,6 +102,7 @@ const App = () => {
       try {
         await AsyncStorage.removeItem("userToken");
         await AsyncStorage.removeItem("userTokenExp");
+        await AsyncStorage.removeItem("userId");
       } catch (e) {
         console.log(e);
       }
@@ -143,6 +151,7 @@ const App = () => {
             <Stack.Screen name="Drink" component={DrinkScreen} />
             <Stack.Screen name="Order" component={OrderScreen} />
             <Stack.Screen name="OrderType" component={OrderTypeScreen} />
+            <Stack.Screen name="MyOrders" component={MyOrdersScreen} />
           </Stack.Navigator>
         ) : (
           <LoginScreen />
