@@ -29,7 +29,7 @@ const OrderItem = ({ order }) => {
               <FlatList
                 data={order.orderedMenu}
                 renderItem={({ item }) => <OrderContentItem item={item} />}
-                listKey="menus"
+                listKey={`menus-${order.id}`}
                 keyExtractor={item => item.id.toString()}
               />
             </View>
@@ -40,7 +40,7 @@ const OrderItem = ({ order }) => {
               <FlatList
                 data={order.orderedFood}
                 renderItem={({ item }) => <OrderContentItem item={item} />}
-                listKey="foods"
+                listKey={`foods-${order.id}`}
                 keyExtractor={item => item.id.toString()}
               />
             </View>
@@ -51,7 +51,7 @@ const OrderItem = ({ order }) => {
               <FlatList
                 data={order.orderedDrink}
                 renderItem={({ item }) => <OrderContentItem item={item} />}
-                listKey="drinks"
+                listKey={`drinks-${order.id}`}
                 keyExtractor={item => item.id.toString()}
               />
             </View>
