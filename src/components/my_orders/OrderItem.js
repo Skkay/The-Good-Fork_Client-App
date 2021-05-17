@@ -22,6 +22,9 @@ const OrderItem = ({ order }) => {
             </Text>
           </View>
         </View>
+        <View style={styles.orderStatus}>
+          <Text style={styles.orderStatusText}>{order.status.label}</Text>
+        </View>
         <View style={styles.orderContent}>
           {order.orderedMenu.length !== 0 && (
             <View style={styles.orderContentGroup}>
@@ -83,17 +86,24 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: "bold",
   },
+  orderStatus: {
+    backgroundColor: "#E0E0E0",
+    borderLeftWidth: stylesVar.borderWidth,
+    borderRightWidth: stylesVar.borderWidth,
+    borderLeftColor: stylesVar.borderColor,
+    borderRightColor: stylesVar.borderColor,
+  },
+  orderStatusText: {
+    textTransform: "uppercase",
+    textAlign: "center",
+  },
   orderContent: {
     backgroundColor: "#ffffff",
     padding: 5,
     borderBottomLeftRadius: stylesVar.borderRadius,
     borderBottomRightRadius: stylesVar.borderRadius,
-    borderBottomWidth: stylesVar.borderWidth,
-    borderLeftWidth: stylesVar.borderWidth,
-    borderRightWidth: stylesVar.borderWidth,
-    borderBottomColor: stylesVar.borderColor,
-    borderLeftColor: stylesVar.borderColor,
-    borderRightColor: stylesVar.borderColor,
+    borderWidth: stylesVar.borderWidth,
+    borderColor: stylesVar.borderColor,
   },
   orderContentGroup: {
     marginVertical: 5,
