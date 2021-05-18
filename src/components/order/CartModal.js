@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Text, StyleSheet, Modal, Pressable, View, SectionList, TextInput  } from "react-native";
 
 import CartSectionItem from "./CartSectionItem";
@@ -19,10 +19,11 @@ const CartModal = ({ navigation, modalVisible, onRequestClose, onCloseButtonPres
       data: cartDrink
     }
   ]
+  const [extraInfo, onChangeExtraInfo] = useState("");
 
   const handleBuyButtonClick = () => {
     onCloseButtonPress();
-    navigation.navigate('OrderType', {cartData: cartData});
+    navigation.navigate('OrderType', {cartData: cartData, extraInfo: extraInfo});
   }
 
   return (
@@ -42,6 +43,10 @@ const CartModal = ({ navigation, modalVisible, onRequestClose, onCloseButtonPres
         <TextInput 
           style={styles.textInput} 
           placeholder="Saisir des informations complémentaires"
+          onChangeText={onChangeExtraInfo}
+          value={extraInfo}
+          maxLength={255}
+          multiline={true}
         />
         
         <View style={styles.buttonGroup}>

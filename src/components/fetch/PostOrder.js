@@ -2,7 +2,7 @@ import axios from "axios";
 
 import getFetchingOption from './options';
 
-const postOrder = (token, cartData, eatIn, datePickup) => {
+const postOrder = (token, cartData, extraInfo, eatIn, datePickup) => {
   const options = getFetchingOption(token);
   const menuIds = []; 
   const foodIds = []; 
@@ -33,7 +33,8 @@ const postOrder = (token, cartData, eatIn, datePickup) => {
       datePickup: datePickup,
       menuIds: menuIds,
       foodIds: foodIds,
-      drinkIds: drinkIds
+      drinkIds: drinkIds,
+      extraInformations: extraInfo
     },
     headers: {
       'accept': options.headers.accept,

@@ -10,7 +10,7 @@ import fetchTokenValidity from '../components/fetch/FetchTokenValidity';
 import postOrder from '../components/fetch/PostOrder';
 
 const OrderTypeScreen = ({ route, navigation }) => {
-  const { cartData } = route.params
+  const { cartData, extraInfo } = route.params
   const { signOut } = useContext(AuthContext);
   const [token, setToken] = useState(null);
   const [isValidToken, setValidToken] = useState(false);
@@ -46,7 +46,7 @@ const OrderTypeScreen = ({ route, navigation }) => {
 
 
   const handlePlaceTakeOutOrder = () => {
-    postOrder(token, cartData, false, date)
+    postOrder(token, cartData, extraInfo, false, date)
       .then((res) => console.log("order taken"))
       .catch((err) => console.log("order error"));
   }
