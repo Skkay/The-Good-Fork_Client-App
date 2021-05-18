@@ -5,6 +5,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 
 import { AuthContext } from '../components/AuthContext';
 import ExpiredSession from '../components/alert/ExpiredSession';
+import UnexpectedError from '../components/alert/UnexpectedError';
 import fetchToken from '../components/fetch/FetchToken';
 import fetchTokenValidity from '../components/fetch/FetchTokenValidity';
 import postOrder from '../components/fetch/PostOrder';
@@ -51,7 +52,10 @@ const OrderTypeScreen = ({ route, navigation }) => {
         console.log("Order successfully placed", res);
         navigation.navigate('Home');
       })
-      .catch((err) => console.log("order error"));
+      .catch((err) => {
+        console.log("Error during order process", err)
+        UnexpectedError(err.message);
+      });
   }
 
   useEffect(() => {
