@@ -22,8 +22,10 @@ const CartModal = ({ navigation, modalVisible, onRequestClose, onCloseButtonPres
   const [token, setToken] = useState(null);
   const [isValidToken, setValidToken] = useState(false);
   const [extraInfo, onChangeExtraInfo] = useState("");
-  const [selectedDiscount, setSelectedDiscount] = useState();
   const [discountList, setDiscountList] = useState([]);
+  const [selectedDiscountIndex, setSelectedDiscountIndex] = useState();
+  const [selectedDiscountValue, setSelectedDiscountValue] = useState();
+  const [finalCartPrice, setFinalCartPrice] = useState(0);
 
   const handleBuyButtonClick = () => {
     onCloseButtonPress();
@@ -50,6 +52,19 @@ const CartModal = ({ navigation, modalVisible, onRequestClose, onCloseButtonPres
       .then((res) => setDiscountList(res))
       .catch((err) => console.log(err));
   }, [token, isValidToken]);
+
+  // Calculate new price if a discount is selected, or set the initial price if none is selected
+  useEffect(() => {
+    if (selectedDiscountIndex === undefined || selectedDiscountIndex === 0) {
+      setFinalCartPrice(cartPrice);
+      return;
+    }
+
+    const discount = discountList[selectedDiscountIndex - 1].value;
+    const newCartPrice = cartPrice * (1 - (discount / 100));
+    setFinalCartPrice(newCartPrice);
+  }, [selectedDiscountIndex, cartPrice]);
+
   return (
     <Modal
       animationType="slide"
@@ -57,7 +72,7 @@ const CartModal = ({ navigation, modalVisible, onRequestClose, onCloseButtonPres
       visible={modalVisible}
       onRequestClose={onRequestClose}>
       <View style={styles.modalView}>
-        <Text style={styles.modalTitle}>{cartCount} {cartCount > 1 ? ("éléments") : ("élément")}. • {cartPrice.toFixed(2)} €</Text>
+        <Text style={styles.modalTitle}>{cartCount} {cartCount > 1 ? ("éléments") : ("élément")}. • {finalCartPrice.toFixed(2)} €</Text>
         <SectionList 
           sections={cartData}
           keyExtractor={(item, index) => item + index}
@@ -76,9 +91,9 @@ const CartModal = ({ navigation, modalVisible, onRequestClose, onCloseButtonPres
           <RNPickerSelect
             placeholder={{ label: `Utilisez vos ${loyaltiPoints} points`, value: null, color: "#9EA0A4" }}
             items={discountList}
-            onValueChange={(value) => setSelectedDiscount(value)}
+            onValueChange={(value, index) => {setSelectedDiscountValue(value); setSelectedDiscountIndex(index)}}
             style={pickerSelectStyles}
-            value={selectedDiscount}
+            value={selectedDiscountValue}
           />
           <View style={pickerSelectStyles.bottomBorder} />
         </View>
