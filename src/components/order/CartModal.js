@@ -1,8 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Text, StyleSheet, Modal, Pressable, View, SectionList, TextInput  } from "react-native";
 
 import RNPickerSelect from 'react-native-picker-select';
 
+import { AuthContext } from '../AuthContext';
+import ExpiredSession from '../alert/ExpiredSession';
+import fetchToken from '../fetch/FetchToken';
+import fetchTokenValidity from '../fetch/FetchTokenValidity';
+import fetchDiscounts from '../fetch/FetchDiscounts';
 import CartSectionItem from "./CartSectionItem";
 import CartSectionHeader from "./CartSectionHeader";
 
@@ -12,18 +17,39 @@ const CartModal = ({ navigation, modalVisible, onRequestClose, onCloseButtonPres
     { title: 1, data: cartFood },
     { title: 2, data: cartDrink }
   ];
-  const discountList = [
-    { label: "-10% (100 points)", value: "10" },
-  ];
 
+  const { signOut } = useContext(AuthContext);
+  const [token, setToken] = useState(null);
+  const [isValidToken, setValidToken] = useState(false);
   const [extraInfo, onChangeExtraInfo] = useState("");
   const [selectedDiscount, setSelectedDiscount] = useState();
+  const [discountList, setDiscountList] = useState([]);
 
   const handleBuyButtonClick = () => {
     onCloseButtonPress();
     navigation.navigate('OrderType', {cartData: cartData, extraInfo: extraInfo});
   }
 
+  useEffect(() => {
+    fetchToken()
+      .then((token) => setToken(token))
+      .catch((err) => console.log(err));
+    if (!token) return;
+
+    fetchTokenValidity(token)
+    .then((res) => {
+      if (res.valid) {
+        setValidToken(true);
+      } else {
+        ExpiredSession(signOut);
+      }
+    })
+    if (!isValidToken) return;
+    
+    fetchDiscounts(token)
+      .then((res) => setDiscountList(res))
+      .catch((err) => console.log(err));
+  }, [token, isValidToken]);
   return (
     <Modal
       animationType="slide"
