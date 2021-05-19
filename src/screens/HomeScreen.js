@@ -1,10 +1,23 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Button, SafeAreaView, Text } from "react-native";
+
+import Toast from 'react-native-toast-message'
 
 import { AuthContext } from '../components/AuthContext';
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = ({ route, navigation }) => {
   const { signOut } = useContext(AuthContext);
+  const { toastType } = route.params;
+
+  // Toast notifications
+  useEffect(() => {
+    if (toastType === "order_success") {
+      Toast.show({
+        text1: 'Commande',
+        text2: 'Votre commande a été envoyée avec succès.'
+      });
+    }
+  });
 
   return (
     <SafeAreaView>
