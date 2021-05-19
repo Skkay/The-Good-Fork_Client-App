@@ -146,7 +146,7 @@ const App = () => {
       <NavigationContainer>
         {loginState.userToken !== null ? (
           <Stack.Navigator initialRouteName="Home">
-            <Stack.Screen name="Home" component={HomeScreen} initialParams={{ toastType: "" }} />
+            <Stack.Screen name="Home" component={HomeScreen} initialParams={{ toastType: "", toastExtra: "" }} />
             <Stack.Screen name="Menu" component={MenuScreen} />
             <Stack.Screen name="Food" component={FoodScreen} />
             <Stack.Screen name="Drink" component={DrinkScreen} />

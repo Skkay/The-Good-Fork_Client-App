@@ -7,13 +7,13 @@ import { AuthContext } from '../components/AuthContext';
 
 const HomeScreen = ({ route, navigation }) => {
   const { signOut } = useContext(AuthContext);
-  const { toastType } = route.params;
+  const { toastType, toastExtra } = route.params;
 
   // Toast notifications
   useEffect(() => {
     if (toastType === "order_success") {
       Toast.show({
-        text1: 'Commande',
+        text1: `Commande n°${toastExtra}`,
         text2: 'Votre commande a été envoyée avec succès.'
       });
     }
