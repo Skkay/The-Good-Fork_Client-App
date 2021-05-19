@@ -11,7 +11,7 @@ import fetchTokenValidity from '../components/fetch/FetchTokenValidity';
 import postOrder from '../components/fetch/PostOrder';
 
 const OrderTypeScreen = ({ route, navigation }) => {
-  const { cartData, extraInfo } = route.params
+  const { cartData, extraInfo, discountId } = route.params
   const { signOut } = useContext(AuthContext);
   const [token, setToken] = useState(null);
   const [isValidToken, setValidToken] = useState(false);

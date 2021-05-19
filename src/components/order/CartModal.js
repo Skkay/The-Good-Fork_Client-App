@@ -29,7 +29,7 @@ const CartModal = ({ navigation, modalVisible, onRequestClose, onCloseButtonPres
 
   const handleBuyButtonClick = () => {
     onCloseButtonPress();
-    navigation.navigate('OrderType', {cartData: cartData, extraInfo: extraInfo});
+    navigation.navigate('OrderType', {cartData: cartData, extraInfo: extraInfo, discountId: selectedDiscountIndex === undefined || selectedDiscountIndex === 0 ? 0 : discountList[selectedDiscountIndex - 1].id});
   }
 
   useEffect(() => {
