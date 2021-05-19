@@ -5,6 +5,8 @@ import { AuthContext } from '../components/AuthContext';
 import ExpiredSession from '../components/alert/ExpiredSession';
 import fetchToken from '../components/fetch/FetchToken';
 import fetchTokenValidity from '../components/fetch/FetchTokenValidity';
+import fetchUserId from '../components/fetch/FetchUserId';
+import fetchUser from '../components/fetch/FetchUser';
 import fetchMenus from '../components/fetch/FetchMenus';
 import fetchFoods from '../components/fetch/FetchFoods';
 import fetchDrinks from '../components/fetch/FetchDrinks';
@@ -32,6 +34,10 @@ const OrderScreen = ({ navigation }) => {
   const [cartPrice, setCartPrice] = useState(0);
 
   const [modalVisible, setModalVisible] = useState(false);
+
+  const [userId, setUserId] = useState();
+  const [userLoyaltyPoints, setUserLoyaltyPoints] = useState();
+  const [isLoadingLoyaltyPoints, setLoadingLoyaltyPoints] = useState(true);
 
   const handleItemPress = (tab, item) => {
     switch (tab) {
@@ -95,6 +101,16 @@ const OrderScreen = ({ navigation }) => {
       })
     if (!isValidToken) return;
 
+    fetchUserId()
+      .then((id) => setUserId(id))
+      .catch((err) => console.log(err))
+    if (!userId) return;
+    
+    // Fetching user's loyalty points
+    fetchUser(token, userId)
+      .then((res) => setUserLoyaltyPoints(res.loyaltyPoints))
+      .finally(() => setLoadingLoyaltyPoints(false));
+
     // Fetching menus
     fetchMenus(token)
       .then((res) => setDataMenu(res))
@@ -109,7 +125,7 @@ const OrderScreen = ({ navigation }) => {
     fetchDrinks(token)
       .then((res) => setDataDrink(res))
       .finally(() => setLoadingDrink(false));
-  }, [token, isValidToken]);
+  }, [token, isValidToken, userId]);
 
   useEffect(() => {
     setCartCount(cartMenu.length + cartFood.length + cartDrink.length);
@@ -120,7 +136,7 @@ const OrderScreen = ({ navigation }) => {
     );
   }, [cartMenu, cartFood, cartDrink]);
 
-  if (isLoadingMenu && isLoadingFood && isLoadingDrink) {
+  if (isLoadingMenu && isLoadingFood && isLoadingDrink && isLoadingLoyaltyPoints) {
     return (
       <ActivityIndicator size="large" color="#000000" />
     );
@@ -138,7 +154,8 @@ const OrderScreen = ({ navigation }) => {
         cartPrice={cartPrice}
         cartMenu={cartMenu}
         cartFood={cartFood}
-        cartDrink={cartDrink} />
+        cartDrink={cartDrink}
+        loyaltiPoints={userLoyaltyPoints} />
 
       <View style={styles.header}>
         <TouchableOpacity style={[styles.headerButton, activeTab === 0 && styles.headerButtonActive]} onPress={() => setActiveTab(0)}>
