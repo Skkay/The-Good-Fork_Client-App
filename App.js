@@ -6,6 +6,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
+import Toast from 'react-native-toast-message'
 
 import { AuthContext } from "./src/components/AuthContext";
 import HomeScreen from "./src/screens/HomeScreen";
@@ -156,6 +157,7 @@ const App = () => {
         ) : (
           <LoginScreen />
         )}
+        <Toast ref={(ref) => Toast.setRef(ref)} />
       </NavigationContainer>
     </AuthContext.Provider>
   );
