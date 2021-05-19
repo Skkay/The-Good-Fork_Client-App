@@ -1,25 +1,23 @@
 import React, { useState } from "react";
 import { Text, StyleSheet, Modal, Pressable, View, SectionList, TextInput  } from "react-native";
 
+import RNPickerSelect from 'react-native-picker-select';
+
 import CartSectionItem from "./CartSectionItem";
 import CartSectionHeader from "./CartSectionHeader";
 
-const CartModal = ({ navigation, modalVisible, onRequestClose, onCloseButtonPress, onCartRemoveButtonPress, cartCount, cartPrice, cartMenu, cartFood, cartDrink }) => {
+const CartModal = ({ navigation, modalVisible, onRequestClose, onCloseButtonPress, onCartRemoveButtonPress, cartCount, cartPrice, cartMenu, cartFood, cartDrink, loyaltiPoints }) => {
   const cartData = [
-    {
-      title: 0,
-      data: cartMenu
-    },
-    {
-      title: 1,
-      data: cartFood
-    },
-    {
-      title: 2,
-      data: cartDrink
-    }
-  ]
+    { title: 0, data: cartMenu },
+    { title: 1, data: cartFood },
+    { title: 2, data: cartDrink }
+  ];
+  const discountList = [
+    { label: "-10% (100 points)", value: "10" },
+  ];
+
   const [extraInfo, onChangeExtraInfo] = useState("");
+  const [selectedDiscount, setSelectedDiscount] = useState();
 
   const handleBuyButtonClick = () => {
     onCloseButtonPress();
@@ -48,7 +46,17 @@ const CartModal = ({ navigation, modalVisible, onRequestClose, onCloseButtonPres
           maxLength={255}
           multiline={true}
         />
-        
+        <View style={{ marginVertical: 10 }}>
+          <RNPickerSelect
+            placeholder={{ label: `Utilisez vos ${loyaltiPoints} points`, value: null, color: "#9EA0A4" }}
+            items={discountList}
+            onValueChange={(value) => setSelectedDiscount(value)}
+            style={pickerSelectStyles}
+            value={selectedDiscount}
+          />
+          <View style={pickerSelectStyles.bottomBorder} />
+        </View>
+
         <View style={styles.buttonGroup}>
           <Pressable
             style={styles.button}
@@ -127,6 +135,35 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     marginTop: 5,
     borderRadius: 5
+  },
+});
+
+const pickerSelectStyles = StyleSheet.create({
+  inputIOS: {
+    fontSize: 16,
+    paddingVertical: 12,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: "#B6B6B6",
+    borderRadius: 4,
+    color: 'black',
+    paddingRight: 30,
+  },
+  inputAndroid: {
+    fontSize: 16,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    borderWidth: 1,
+    borderColor: "#000000",
+    borderRadius: 8,
+    color: "#000000",
+    paddingRight: 30,
+  },
+  bottomBorder: {
+    borderBottomColor: "#9EA0A4",
+    borderBottomWidth: 1,
+    marginHorizontal: 10,
+    marginTop: 4
   },
 });
 
