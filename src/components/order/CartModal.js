@@ -97,7 +97,7 @@ const CartModal = ({ navigation, modalVisible, onRequestClose, onCloseButtonPres
         />
         <View style={{ marginVertical: 10 }}>
           <RNPickerSelect
-            placeholder={{ label: `Utilisez vos ${loyaltiPoints} points`, value: null, color: "#9EA0A4" }}
+            placeholder={{ label: `${loyaltiPoints} ${loyaltiPoints > 1 ? "points" : "point"} disponible...`, value: null, color: "#9EA0A4" }}
             items={discountList}
             onValueChange={(value, index) => {setSelectedDiscountValue(value); setSelectedDiscountIndex(index)}}
             style={pickerSelectStyles}
