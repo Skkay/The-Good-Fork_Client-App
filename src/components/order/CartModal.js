@@ -49,7 +49,15 @@ const CartModal = ({ navigation, modalVisible, onRequestClose, onCloseButtonPres
     if (!isValidToken) return;
     
     fetchDiscounts(token)
-      .then((res) => setDiscountList(res))
+      .then((res) => {
+        const availableDiscounts = [];
+        res.forEach(element => {
+          if (element.cost <= loyaltiPoints) {
+            availableDiscounts.push(element);
+          }
+        });
+        setDiscountList(availableDiscounts);
+      })
       .catch((err) => console.log(err));
   }, [token, isValidToken]);
 
