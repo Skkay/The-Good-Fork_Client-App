@@ -17,6 +17,7 @@ import DrinkScreen from "./src/screens/DrinkScreen";
 import OrderScreen from "./src/screens/OrderScreen";
 import OrderTypeScreen from "./src/screens/OrderTypeScreen";
 import MyOrdersScreen from "./src/screens/MyOrdersScreen";
+import ReservationScreen from "./src/screens/ReservationScreen";
 
 const App = () => {
   const Stack = createStackNavigator();
@@ -153,6 +154,7 @@ const App = () => {
             <Stack.Screen name="Order" component={OrderScreen} />
             <Stack.Screen name="OrderType" component={OrderTypeScreen} />
             <Stack.Screen name="MyOrders" component={MyOrdersScreen} />
+            <Stack.Screen name="Reservation" component={ReservationScreen} />
           </Stack.Navigator>
         ) : (
           <LoginScreen />
