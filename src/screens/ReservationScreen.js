@@ -21,10 +21,10 @@ const ReservationScreen = () => {
       .catch((err) => console.log(err));
     if (!token) return;
 
-    // Checking token validity
+    // Checking token validity. A token with less than 60*5 seconds left is considered as expired
     fetchTokenValidity(token)
       .then((res) => {
-        if (res.valid) {
+        if (res.expireIn > 60 * 5) {
           setValidToken(true);
         } else {
           ExpiredSession(signOut);
