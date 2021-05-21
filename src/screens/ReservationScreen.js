@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useContext } from "react";
-import { SafeAreaView, Text, ActivityIndicator } from "react-native";
+import { SafeAreaView, Text, ActivityIndicator, FlatList } from "react-native";
 
 import { AuthContext } from '../components/AuthContext';
 import ExpiredSession from '../components/alert/ExpiredSession';
 import fetchToken from '../components/fetch/FetchToken';
 import fetchTokenValidity from '../components/fetch/FetchTokenValidity';
 import fetchAvailableTables from '../components/fetch/FetchAvailableTables';
+import TableItem from "../components/reservation/TableItem";
 
 const ReservationScreen = () => {
   const { signOut } = useContext(AuthContext);
@@ -44,7 +45,11 @@ const ReservationScreen = () => {
 
   return (
     <SafeAreaView>
-      <Text>Reservation screen</Text>
+      <FlatList 
+        data={data}
+        renderItem={({ item }) => <TableItem table={item} />}
+        keyExtractor={item => item.date + item.service.id.toString() + item.table.id.toString()}
+      />
     </SafeAreaView>
   );
 };
