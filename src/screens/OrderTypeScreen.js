@@ -54,7 +54,7 @@ const OrderTypeScreen = ({ route, navigation }) => {
 
 
   const handlePlaceTakeOutOrder = () => {
-    postOrder(token, cartData, extraInfo, false, date, discountId)
+    postOrder(token, cartData, extraInfo, false, date, discountId, null)
       .then((res) => {
         console.log("Take-out order successfully placed", res);
         navigation.navigate('Home', {toastType: "order_success_takeout", toastExtra: res.data});
