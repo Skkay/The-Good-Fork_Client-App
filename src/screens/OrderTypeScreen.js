@@ -50,7 +50,7 @@ const OrderTypeScreen = ({ route, navigation }) => {
     postOrder(token, cartData, extraInfo, false, date, discountId)
       .then((res) => {
         console.log("Order successfully placed", res);
-        navigation.navigate('Home', {toastType: "order_success", toastExtra: res.data.id});
+        navigation.navigate('Home', {toastType: "order_success", toastExtra: res.data});
       })
       .catch((err) => {
         console.log("Error during order process", err)

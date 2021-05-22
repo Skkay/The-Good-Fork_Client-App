@@ -13,7 +13,7 @@ const HomeScreen = ({ route, navigation }) => {
   useEffect(() => {
     if (toastType === "order_success") {
       Toast.show({
-        text1: `Commande n°${toastExtra}`,
+        text1: `Commande n°${toastExtra.id}`,
         text2: 'Votre commande a été envoyée avec succès.'
       });
     }
