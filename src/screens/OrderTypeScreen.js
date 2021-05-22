@@ -91,14 +91,14 @@ const OrderTypeScreen = ({ route, navigation }) => {
             <Pressable style={styles.buttonSelectDateTime} onPress={showDatepicker}>
               <Text style={styles.buttonSelectDateTimeText}>Sélectionner la date</Text>
             </Pressable>
-            <Text style={styles.dateText}>Le {date.getDate().toString().padStart(2, '0')}/{(date.getMonth() + 1).toString().padStart(2, '0')}</Text>
+            <Text style={styles.textCenter}>Le {date.getDate().toString().padStart(2, '0')}/{(date.getMonth() + 1).toString().padStart(2, '0')}</Text>
           </View>
 
           <View style={styles.selectDateTime}>
             <Pressable style={styles.buttonSelectDateTime} onPress={showTimepicker}>
               <Text style={styles.buttonSelectDateTimeText}>Sélectionner l'heure</Text>
             </Pressable>
-            <Text style={styles.dateText}>À {date.getHours().toString().padStart(2, '0')}:{date.getMinutes().toString().padStart(2, '0')}</Text>
+            <Text style={styles.textCenter}>À {date.getHours().toString().padStart(2, '0')}:{date.getMinutes().toString().padStart(2, '0')}</Text>
           </View>
 
           <Pressable style={[styles.nextButton, isDateValid && styles.nextButtonDisable]} onPress={handlePlaceTakeOutOrder} disabled={isDateValid}>
@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 20
   },
-  dateText: {
+  textCenter: {
     textAlign: "center",
   },
 
