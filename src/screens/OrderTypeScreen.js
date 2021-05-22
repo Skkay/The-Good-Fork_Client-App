@@ -145,6 +145,7 @@ const styles = StyleSheet.create({
   },
 
   content: {
+    margin: 5,
   },
   selectDateTime: {
     marginVertical: 20
