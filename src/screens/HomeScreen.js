@@ -17,6 +17,13 @@ const HomeScreen = ({ route, navigation }) => {
         text2: 'Votre commande a été envoyée avec succès.'
       });
     }
+    if (toastType === "reservation_success") {
+      const date = new Date(toastExtra.date);
+      Toast.show({
+        text1: 'Réservation confirmée',
+        text2: `Réservation d'une table de ${toastExtra.table_.place} ${toastExtra.table_.place > 1 ? "places" : "place" }, pour le service de ${toastExtra.service.startTime}h-${toastExtra.service.endTime}h le ${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear()}.`
+      });
+    }
   });
 
   return (
