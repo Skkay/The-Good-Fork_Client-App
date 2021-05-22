@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { Pressable, SafeAreaView, Text, StyleSheet, View } from "react-native";
+import { Pressable, SafeAreaView, Text, StyleSheet, View, ActivityIndicator, FlatList } from "react-native";
 
 import DateTimePicker from '@react-native-community/datetimepicker';
 
@@ -8,13 +8,20 @@ import ExpiredSession from '../components/alert/ExpiredSession';
 import UnexpectedError from '../components/alert/UnexpectedError';
 import fetchToken from '../components/fetch/FetchToken';
 import fetchTokenValidity from '../components/fetch/FetchTokenValidity';
+import fetchUserId from '../components/fetch/FetchUserId';
+import fetchReservations from "../components/fetch/FetchReservations";
 import postOrder from '../components/fetch/PostOrder';
+import ReservedTableItem from "../components/order/ReservedTableItem";
 
 const OrderTypeScreen = ({ route, navigation }) => {
   const { cartData, extraInfo, discountId } = route.params
   const { signOut } = useContext(AuthContext);
   const [token, setToken] = useState(null);
   const [isValidToken, setValidToken] = useState(false);
+  const [userId, setUserId] = useState(null);
+  const [isLoading, setLoading] = useState(true);
+  const [reservations, setReservations] = useState([]);
+  const [selectedReservation, setSelectedReservation] = useState(null);
 
   const [selectedButton, setSelectedButton] = useState(null);
 
@@ -58,6 +65,14 @@ const OrderTypeScreen = ({ route, navigation }) => {
       });
   }
 
+  const handleEatInOrder = () => {
+    console.log("eat in");
+  }
+
+  const selectReservation = (id) => {
+    setSelectedReservation(id);
+  }
+
   useEffect(() => {
     fetchToken()
       .then((token) => setToken(token))
@@ -73,7 +88,16 @@ const OrderTypeScreen = ({ route, navigation }) => {
         }
       })
     if (!isValidToken) return;
-  }, [token, isValidToken]);
+
+    fetchUserId()
+      .then((id) => setUserId(id))
+      .catch((err) => console.log(err))
+    if (!userId) return;
+
+    fetchReservations(token, userId)
+      .then((res) => setReservations(res))
+      .finally(() => setLoading(false));
+  }, [token, isValidToken, userId]);
 
   return (
     <SafeAreaView>
@@ -85,6 +109,29 @@ const OrderTypeScreen = ({ route, navigation }) => {
           <Text style={styles.buttonRadioText}>À emporter</Text>
         </Pressable>
       </View>
+      {selectedButton === 0 && (
+        isLoading ? <ActivityIndicator size="large" color="#000000" /> : (
+          reservations.length > 0 ? (
+            <View style={styles.content}>
+              <Text style={styles.textCenter}>Vous avez {reservations.length} {reservations.length > 1 ? "réservations" : "réservation"} aujourd'hui.</Text>
+              <Text style={styles.textCenter}>Sélectionnez votre réservation, vérifiez que vous êtes à la bonne table, puis validez votre commande.</Text>
+              <FlatList 
+                data={reservations}
+                renderItem={({ item }) => <ReservedTableItem table={item} selectReservation={selectReservation} selectedReservation={selectedReservation} />}
+                keyExtractor={item => item.date + item.service.id.toString() + item.table_.id.toString()}
+                extraData={selectedReservation}
+              />
+              {selectedReservation !== null && (
+                <Pressable style={styles.nextButton} onPress={handleEatInOrder}>
+                  <Text style={styles.buttonSelectDateTimeText}>Valider la commande</Text>
+                </Pressable>
+              )}
+            </View>
+          ) : (
+            <Text style={styles.textCenter}>Vous n'avez aucune réservation pour aujourd'hui.</Text>
+          )
+        )
+      )}
       {selectedButton === 1 && (
         <View style={styles.content}>
           <View style={styles.selectDateTime}>
