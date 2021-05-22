@@ -17,6 +17,12 @@ const HomeScreen = ({ route, navigation }) => {
         text2: 'Votre commande à emporter a été envoyée avec succès.'
       });
     }
+    if (toastType === "order_success_eatin") {
+      Toast.show({
+        text1: `Commande n°${toastExtra.id}`,
+        text2: 'Votre commande sur place a été envoyée avec succès.'
+      });
+    }
     if (toastType === "reservation_success") {
       const date = new Date(toastExtra.date);
       Toast.show({

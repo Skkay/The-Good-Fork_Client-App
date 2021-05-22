@@ -66,7 +66,15 @@ const OrderTypeScreen = ({ route, navigation }) => {
   }
 
   const handleEatInOrder = () => {
-    console.log("eat in");
+    postOrder(token, cartData, extraInfo, true, null, discountId, selectedReservation)
+    .then((res) => {
+      console.log("Eat-in order successfully placed", res);
+      navigation.navigate('Home', {toastType: "order_success_eatin", toastExtra: res.data});
+    })
+    .catch((err) => {
+      console.log("Error during eat-in order process", err)
+      UnexpectedError(err.message);
+    });
   }
 
   const selectReservation = (id) => {
