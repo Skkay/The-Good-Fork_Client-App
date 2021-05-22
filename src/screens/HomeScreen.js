@@ -11,10 +11,10 @@ const HomeScreen = ({ route, navigation }) => {
 
   // Toast notifications
   useEffect(() => {
-    if (toastType === "order_success") {
+    if (toastType === "order_success_takeout") {
       Toast.show({
         text1: `Commande n°${toastExtra.id}`,
-        text2: 'Votre commande a été envoyée avec succès.'
+        text2: 'Votre commande à emporter a été envoyée avec succès.'
       });
     }
     if (toastType === "reservation_success") {

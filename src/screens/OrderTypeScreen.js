@@ -56,11 +56,11 @@ const OrderTypeScreen = ({ route, navigation }) => {
   const handlePlaceTakeOutOrder = () => {
     postOrder(token, cartData, extraInfo, false, date, discountId)
       .then((res) => {
-        console.log("Order successfully placed", res);
-        navigation.navigate('Home', {toastType: "order_success", toastExtra: res.data});
+        console.log("Take-out order successfully placed", res);
+        navigation.navigate('Home', {toastType: "order_success_takeout", toastExtra: res.data});
       })
       .catch((err) => {
-        console.log("Error during order process", err)
+        console.log("Error during take-out order process", err)
         UnexpectedError(err.message);
       });
   }
