@@ -34,7 +34,7 @@ const TableItem = ({ table, token, navigation }) => {
   return (
     <View style={styles.reservation}>
       <View style={styles.reservationHeader}>
-        <Text style={styles.reservationDate}>{date.getDate().toString().padStart(2, '0')}/{(date.getMonth() + 1).toString().padStart(2, '0')}/{date.getFullYear()} - {table.service.startTime}h-{table.service.endTime}</Text>
+        <Text style={styles.reservationDate}>{date.getDate().toString().padStart(2, '0')}/{(date.getMonth() + 1).toString().padStart(2, '0')}/{date.getFullYear()} - {table.service.startTime}h-{table.service.endTime}h</Text>
       </View>
       <View style={styles.reservationContent}>
         <View>
