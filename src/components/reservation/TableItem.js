@@ -4,7 +4,7 @@ import { Text, View, StyleSheet, Pressable, Alert } from "react-native";
 import UnexpectedError from '../alert/UnexpectedError';
 import postReservation from '../fetch/PostReservation';
 
-const TableItem = ({ table, token }) => {
+const TableItem = ({ table, token, navigation }) => {
   const date = new Date(table.date);
 
   const handlePressReservationButton = () => {
@@ -23,6 +23,7 @@ const TableItem = ({ table, token }) => {
     postReservation(token, table.service.id, table.table.id, date)
       .then((res) => {
         console.log("Reservation successfully placed", res);
+        navigation.navigate('Home', {toastType: "reservation_success", toastExtra: res.data});
       })
       .catch((err) => {
         console.log("Error during reservation process", err);

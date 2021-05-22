@@ -8,7 +8,7 @@ import fetchTokenValidity from '../components/fetch/FetchTokenValidity';
 import fetchAvailableTables from '../components/fetch/FetchAvailableTables';
 import TableItem from "../components/reservation/TableItem";
 
-const ReservationScreen = () => {
+const ReservationScreen = ({ navigation }) => {
   const { signOut } = useContext(AuthContext);
   const [token, setToken] = useState(null);
   const [isValidToken, setValidToken] = useState(false);
@@ -47,7 +47,7 @@ const ReservationScreen = () => {
     <SafeAreaView>
       <FlatList 
         data={data}
-        renderItem={({ item }) => <TableItem table={item} token={token} />}
+        renderItem={({ item }) => <TableItem table={item} token={token} navigation={navigation} />}
         keyExtractor={item => item.date + item.service.id.toString() + item.table.id.toString()}
       />
     </SafeAreaView>
