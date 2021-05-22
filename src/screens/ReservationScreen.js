@@ -47,7 +47,7 @@ const ReservationScreen = () => {
     <SafeAreaView>
       <FlatList 
         data={data}
-        renderItem={({ item }) => <TableItem table={item} />}
+        renderItem={({ item }) => <TableItem table={item} token={token} />}
         keyExtractor={item => item.date + item.service.id.toString() + item.table.id.toString()}
       />
     </SafeAreaView>

@@ -1,8 +1,35 @@
 import React from "react";
-import { Text, View, StyleSheet, Pressable } from "react-native";
+import { Text, View, StyleSheet, Pressable, Alert } from "react-native";
 
-const TableItem = ({ table }) => {
+import UnexpectedError from '../alert/UnexpectedError';
+import postReservation from '../fetch/PostReservation';
+
+const TableItem = ({ table, token }) => {
   const date = new Date(table.date);
+
+  const handlePressReservationButton = () => {
+    console.log(table.date, table.service.id, table.table.id);
+    Alert.alert(
+      "Confirmer la reservation ?",
+      `Vous êtes sur le point de reserver une table de ${table.table.place} ${table.table.place > 1 ? "places" : "place" }, pour le service de ${table.service.startTime}h-${table.service.endTime}h le ${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear()}, confirmer ?`,
+      [
+        { text: "Annuler", onPress: () => console.log("Reservation canceled") }, 
+        { text: "Oui", onPress: handleReserveTable }
+      ]
+    );
+  }
+
+  const handleReserveTable = () => {
+    postReservation(token, table.service.id, table.table.id, date)
+      .then((res) => {
+        console.log("Reservation successfully placed", res);
+      })
+      .catch((err) => {
+        console.log("Error during reservation process", err);
+        UnexpectedError(err.message);
+      });
+  }
+
   return (
     <View style={styles.reservation}>
       <View style={styles.reservationHeader}>
@@ -15,7 +42,7 @@ const TableItem = ({ table }) => {
         </View>
         <Pressable
           style={styles.button}
-          onPress={() => console.log(table.date, table.service.id, table.table.id)}>
+          onPress={handlePressReservationButton}>
           <Text style={styles.textButton}>Réserver</Text>
         </Pressable>
       </View>
