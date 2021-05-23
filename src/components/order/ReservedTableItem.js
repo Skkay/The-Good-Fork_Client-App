@@ -21,15 +21,15 @@ const ReservedTableItem = ({ table, selectReservation, selectedReservation }) =>
 const stylesVar = {
   borderRadius: 5,
   borderWidth: 1,
-  selectedBorderWidth: 3,
-  borderColor: "#AFAFAF"
+  selectedBorderWidth: 2,
+  borderColor: "#0090FF"
 };
 const styles = StyleSheet.create({
   reservation: {
     margin: 10,
   },
   reservationHeader: {
-    backgroundColor: "#FFE9BA",
+    backgroundColor: "#A4D7FF",
     borderTopLeftRadius: stylesVar.borderRadius,
     borderTopRightRadius: stylesVar.borderRadius,
     borderLeftColor: stylesVar.borderColor,

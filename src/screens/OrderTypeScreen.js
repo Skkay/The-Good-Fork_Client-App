@@ -111,10 +111,10 @@ const OrderTypeScreen = ({ route, navigation }) => {
     <SafeAreaView>
       <View style={styles.buttonGroup}>
         <Pressable style={[styles.buttonRadio, selectedButton === 0 && styles.buttonRadioSelected]} onPress={() => setSelectedButton(0)}>
-          <Text style={styles.buttonRadioText}>Sur place</Text>
+          <Text style={[styles.buttonRadioText, selectedButton === 0 && styles.buttonRadioTextSelected]}>Sur place</Text>
         </Pressable>
         <Pressable style={[styles.buttonRadio, selectedButton === 1 && styles.buttonRadioSelected]} onPress={() => setSelectedButton(1)}>
-          <Text style={styles.buttonRadioText}>À emporter</Text>
+          <Text style={[styles.buttonRadioText, selectedButton === 1 && styles.buttonRadioTextSelected]}>À emporter</Text>
         </Pressable>
       </View>
       {selectedButton === 0 && (
@@ -130,8 +130,9 @@ const OrderTypeScreen = ({ route, navigation }) => {
                 extraData={selectedReservation}
               />
               {selectedReservation !== null && (
-                <Pressable style={styles.nextButton} onPress={handleEatInOrder}>
-                  <Text style={styles.buttonSelectDateTimeText}>Valider la commande</Text>
+                // <Pressable style={styles.nextButton} onPress={handleEatInOrder}>
+                <Pressable style={({ pressed }) => [styles.nextButton, pressed && styles.buttonPressed]} onPress={handleEatInOrder}>
+                  <Text style={styles.nextButtonText}>Valider la commande</Text>
                 </Pressable>
               )}
             </View>
@@ -143,21 +144,21 @@ const OrderTypeScreen = ({ route, navigation }) => {
       {selectedButton === 1 && (
         <View style={styles.content}>
           <View style={styles.selectDateTime}>
-            <Pressable style={styles.buttonSelectDateTime} onPress={showDatepicker}>
+            <Pressable style={({ pressed }) => [styles.buttonSelectDateTime, pressed && styles.buttonPressed]} onPress={showDatepicker}>
               <Text style={styles.buttonSelectDateTimeText}>Sélectionner la date</Text>
             </Pressable>
-            <Text style={styles.textCenter}>Le {date.getDate().toString().padStart(2, '0')}/{(date.getMonth() + 1).toString().padStart(2, '0')}</Text>
+            <Text style={styles.textSelectedDateTime}>Le {date.getDate().toString().padStart(2, '0')}/{(date.getMonth() + 1).toString().padStart(2, '0')}</Text>
           </View>
 
           <View style={styles.selectDateTime}>
-            <Pressable style={styles.buttonSelectDateTime} onPress={showTimepicker}>
+            <Pressable style={({ pressed }) => [styles.buttonSelectDateTime, pressed && styles.buttonPressed]} onPress={showTimepicker}>
               <Text style={styles.buttonSelectDateTimeText}>Sélectionner l'heure</Text>
             </Pressable>
-            <Text style={styles.textCenter}>À {date.getHours().toString().padStart(2, '0')}:{date.getMinutes().toString().padStart(2, '0')}</Text>
+            <Text style={styles.textSelectedDateTime}>À {date.getHours().toString().padStart(2, '0')}:{date.getMinutes().toString().padStart(2, '0')}</Text>
           </View>
 
-          <Pressable style={[styles.nextButton, isDateValid && styles.nextButtonDisable]} onPress={handlePlaceTakeOutOrder} disabled={isDateValid}>
-            <Text style={styles.buttonSelectDateTimeText}>Valider la commande</Text>
+          <Pressable style={({ pressed }) => [styles.nextButton, isDateValid && styles.nextButtonDisable, pressed && styles.buttonPressed]} onPress={handlePlaceTakeOutOrder} disabled={isDateValid}>
+            <Text style={styles.nextButtonText}>Valider la commande</Text>
           </Pressable>
 
           {show && (
@@ -186,17 +187,24 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     flexShrink: 1,
     flexBasis: 0,
-    backgroundColor: "#00ff00",
+    backgroundColor: "#FFFFFF",
+    borderColor: "#0090FF",
+    borderWidth: 1,
+    borderRadius: 20,
     marginHorizontal: 10,
     marginVertical: 30,
     paddingVertical: 5,
   },
   buttonRadioSelected: {
-    backgroundColor: "#0000ff",
+    backgroundColor: "#0090FF",
   },
   buttonRadioText: {
     textAlign: "center",
     fontSize: 20,
+    color: "#0090FF",
+  },
+  buttonRadioTextSelected: {
+    color: "#FFFFFF"
   },
 
   content: {
@@ -206,27 +214,47 @@ const styles = StyleSheet.create({
     marginVertical: 20
   },
   buttonSelectDateTime: {
-    backgroundColor: "#ff0000",
+    backgroundColor: "#FFFFFF",
+    borderColor: "#0090FF",
+    borderWidth: 1,
     marginHorizontal: 15,
-    paddingVertical: 10
+    paddingVertical: 10,
+    borderRadius: 10,
+  },
+  buttonPressed: {
+    backgroundColor: "#034C85",
   },
   buttonSelectDateTimeText: {
     textAlign: "center",
-    fontSize: 20
+    fontSize: 20,
+    color: "#0090FF",
   },
-  textCenter: {
+  textSelectedDateTime: {
     textAlign: "center",
+    color: "#034C85",
+    fontSize: 16,
+    fontWeight: "bold"
   },
 
   nextButton: {
-    backgroundColor: "#D599FF",
+    backgroundColor: "#0090FF",
+    borderRadius: 10,
     marginTop: 10,
     marginHorizontal: 30,
-    paddingVertical: 5
+    paddingVertical: 5,
+  },
+  nextButtonText: {
+    color: "#FFFFFF",
+    textAlign: "center",
+    fontSize: 20,
   },
   nextButtonDisable: {
     backgroundColor: "#A8A8A8",
-  }
+  },
+
+  textCenter: {
+    textAlign: "center",
+  },
 });
 
 export default OrderTypeScreen;
