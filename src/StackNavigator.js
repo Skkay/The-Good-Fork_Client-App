@@ -23,6 +23,7 @@ const MainStackNavigator = ({ navigation }) => {
         component={HomeScreen} 
         initialParams={{ toastType: "", toastExtra: {} }} 
         options={{ 
+          title: "Accueil",
           headerLeft: () => (
             <Pressable style={styles.drawerIcon} onPress={() => navigation.openDrawer()}>
               <Icon name="Bars" height="28" width="28" />
@@ -30,12 +31,12 @@ const MainStackNavigator = ({ navigation }) => {
           ) 
         }} 
       />
-      <Stack.Screen name="Menu" component={MenuScreen} />
-      <Stack.Screen name="Food" component={FoodScreen} />
-      <Stack.Screen name="Drink" component={DrinkScreen} />
-      <Stack.Screen name="Order" component={OrderScreen} />
-      <Stack.Screen name="OrderType" component={OrderTypeScreen} />
-      <Stack.Screen name="Reservation" component={ReservationScreen} />
+      <Stack.Screen name="Menu" component={MenuScreen} options={{ title: "Nos menus" }} />
+      <Stack.Screen name="Food" component={FoodScreen} options={{ title: "Nos plats" }} />
+      <Stack.Screen name="Drink" component={DrinkScreen} options={{ title: "Nos boissons" }} />
+      <Stack.Screen name="Order" component={OrderScreen} options={{ title: "Commander" }} />
+      <Stack.Screen name="OrderType" component={OrderTypeScreen} options={{ title: "Commander" }} />
+      <Stack.Screen name="Reservation" component={ReservationScreen} options={{ title: "Réserver" }} />
     </Stack.Navigator>
   );
 }
@@ -43,7 +44,7 @@ const MainStackNavigator = ({ navigation }) => {
 const MyOrdersStackNavigator = () => {
   return (
     <Stack.Navigator initialRouteName="MyOrders">
-      <Stack.Screen name="MyOrders" component={MyOrdersScreen} />
+      <Stack.Screen name="MyOrders" component={MyOrdersScreen} options={{ title: "Mes commandes" }} />
     </Stack.Navigator>
   );
 }

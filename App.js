@@ -68,12 +68,12 @@ const App = () => {
             return (
               <DrawerContentScrollView {...props}>
                 <DrawerItemList {...props} />
-                <DrawerItem label="Logout" onPress={signOut} />
+                <DrawerItem label="Déconnexion" onPress={signOut} />
               </DrawerContentScrollView>
             );
           }}>
-            <Drawer.Screen name="Home" component={MainStackNavigator} />
-            <Drawer.Screen name="MyOrders" component={MyOrdersStackNavigator} />
+            <Drawer.Screen name="Home" component={MainStackNavigator} options={{ title: "Accueil" }} />
+            <Drawer.Screen name="MyOrders" component={MyOrdersStackNavigator} options={{ title: "Mes commandes" }} />
           </Drawer.Navigator>
         ) : (
           <Stack.Navigator initialRouteName="Login">
