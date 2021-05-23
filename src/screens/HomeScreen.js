@@ -35,10 +35,6 @@ const HomeScreen = ({ route, navigation }) => {
   return (
     <SafeAreaView>
       <Text>Home screen</Text>
-      <Button
-        title="Logout"
-        onPress={() => {signOut()}}
-      />
       <Button 
         title="Menus"
         onPress={() => navigation.navigate('Menu')}
@@ -54,10 +50,6 @@ const HomeScreen = ({ route, navigation }) => {
       <Button 
         title="Order"
         onPress={() => navigation.navigate('Order')}
-      />
-      <Button 
-        title="My orders"
-        onPress={() => navigation.navigate('MyOrders')}
       />
       <Button 
         title="Reservation"

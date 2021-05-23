@@ -4,37 +4,34 @@ import { ActivityIndicator, StyleSheet, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
 import Toast from 'react-native-toast-message'
 
 import { AuthContext } from "./src/components/AuthContext";
-import HomeScreen from "./src/screens/HomeScreen";
 import LoginScreen from "./src/screens/LoginScreen";
-import MenuScreen from "./src/screens/MenuScreen";
-import FoodScreen from "./src/screens/FoodScreen";
-import DrinkScreen from "./src/screens/DrinkScreen";
-import OrderScreen from "./src/screens/OrderScreen";
-import OrderTypeScreen from "./src/screens/OrderTypeScreen";
-import MyOrdersScreen from "./src/screens/MyOrdersScreen";
-import ReservationScreen from "./src/screens/ReservationScreen";
 import RegisterScreen from "./src/screens/RegisterScreen";
+import { MainStackNavigator, MyOrdersStackNavigator } from './src/StackNavigator';
 
 const App = () => {
   const Stack = createStackNavigator();
+  const Drawer = createDrawerNavigator();
+
   const [isConnected, setConnected] = useState(false);
   const [isLoading, setLoading] = useState(true);
 
+  const signOut = () => {
+    try {
+      AsyncStorage.removeItem("userToken");
+      AsyncStorage.removeItem("userTokenExp");
+      AsyncStorage.removeItem("userId");
+      setConnected(false);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   const authContext = useMemo(() => ({
-    // Remove stored token
-    signOut: async () => {
-      try {
-        await AsyncStorage.removeItem("userToken");
-        await AsyncStorage.removeItem("userTokenExp");
-        await AsyncStorage.removeItem("userId");
-        await setConnected(false);
-      } catch (e) {
-        console.log(e);
-      }
-    },
+    signOut: () => signOut(),
   }), []);
 
   // Try to retrieve stored user token
@@ -67,16 +64,17 @@ const App = () => {
     <AuthContext.Provider value={authContext}>
       <NavigationContainer>
         {isConnected ? (
-          <Stack.Navigator initialRouteName="Home">
-            <Stack.Screen name="Home" component={HomeScreen} initialParams={{ toastType: "", toastExtra: {} }} />
-            <Stack.Screen name="Menu" component={MenuScreen} />
-            <Stack.Screen name="Food" component={FoodScreen} />
-            <Stack.Screen name="Drink" component={DrinkScreen} />
-            <Stack.Screen name="Order" component={OrderScreen} />
-            <Stack.Screen name="OrderType" component={OrderTypeScreen} />
-            <Stack.Screen name="MyOrders" component={MyOrdersScreen} />
-            <Stack.Screen name="Reservation" component={ReservationScreen} />
-          </Stack.Navigator>
+          <Drawer.Navigator initialRouteName="Home" drawerContent={props => {
+            return (
+              <DrawerContentScrollView {...props}>
+                <DrawerItemList {...props} />
+                <DrawerItem label="Logout" onPress={signOut} />
+              </DrawerContentScrollView>
+            );
+          }}>
+            <Drawer.Screen name="Home" component={MainStackNavigator} />
+            <Drawer.Screen name="MyOrders" component={MyOrdersStackNavigator} />
+          </Drawer.Navigator>
         ) : (
           <Stack.Navigator initialRouteName="Login">
             <Stack.Screen name="Login">
