@@ -64,14 +64,12 @@ const App = () => {
     <AuthContext.Provider value={authContext}>
       <NavigationContainer>
         {isConnected ? (
-          <Drawer.Navigator initialRouteName="Home" drawerContent={props => {
-            return (
-              <DrawerContentScrollView {...props}>
-                <DrawerItemList {...props} />
-                <DrawerItem label="Déconnexion" onPress={signOut} />
-              </DrawerContentScrollView>
-            );
-          }}>
+          <Drawer.Navigator initialRouteName="Home" drawerContent={props => (
+            <DrawerContentScrollView {...props}>
+              <DrawerItemList {...props} />
+              <DrawerItem label="Déconnexion" onPress={signOut} />
+            </DrawerContentScrollView>
+          )}>
             <Drawer.Screen name="Home" component={MainStackNavigator} options={{ title: "Accueil" }} />
             <Drawer.Screen name="MyOrders" component={MyOrdersStackNavigator} options={{ title: "Mes commandes" }} />
           </Drawer.Navigator>
