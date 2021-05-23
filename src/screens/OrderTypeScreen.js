@@ -22,7 +22,7 @@ const OrderTypeScreen = ({ route, navigation }) => {
   const [isLoading, setLoading] = useState(true);
   const [reservations, setReservations] = useState([]);
   const [selectedReservation, setSelectedReservation] = useState(null);
-
+  const [isPendingOrder, setPendingOrder] = useState(false);
   const [selectedButton, setSelectedButton] = useState(null);
 
   /* DateTimePicker */
@@ -54,6 +54,7 @@ const OrderTypeScreen = ({ route, navigation }) => {
 
 
   const handlePlaceTakeOutOrder = () => {
+    setPendingOrder(true);
     postOrder(token, cartData, extraInfo, false, date, discountId, 0)
       .then((res) => {
         console.log("Take-out order successfully placed", res);
@@ -61,11 +62,13 @@ const OrderTypeScreen = ({ route, navigation }) => {
       })
       .catch((err) => {
         console.log("Error during take-out order process", err)
+        setPendingOrder(false);
         UnexpectedError(err.message);
       });
   }
 
   const handleEatInOrder = () => {
+    setPendingOrder(true);
     postOrder(token, cartData, extraInfo, true, null, discountId, selectedReservation)
     .then((res) => {
       console.log("Eat-in order successfully placed", res);
@@ -73,6 +76,7 @@ const OrderTypeScreen = ({ route, navigation }) => {
     })
     .catch((err) => {
       console.log("Error during eat-in order process", err)
+      setPendingOrder(false);
       UnexpectedError(err.message);
     });
   }
@@ -130,10 +134,12 @@ const OrderTypeScreen = ({ route, navigation }) => {
                 extraData={selectedReservation}
               />
               {selectedReservation !== null && (
-                // <Pressable style={styles.nextButton} onPress={handleEatInOrder}>
-                <Pressable style={({ pressed }) => [styles.nextButton, pressed && styles.buttonPressed]} onPress={handleEatInOrder}>
-                  <Text style={styles.nextButtonText}>Valider la commande</Text>
-                </Pressable>
+                <View>
+                  <Pressable style={({ pressed }) => [styles.nextButton, pressed && styles.buttonPressed]} onPress={handleEatInOrder}>
+                    <Text style={styles.nextButtonText}>Valider la commande</Text>
+                  </Pressable>
+                  {isPendingOrder && (<ActivityIndicator size="large" color="#000000" />)}
+                </View>
               )}
             </View>
           ) : (
@@ -160,7 +166,7 @@ const OrderTypeScreen = ({ route, navigation }) => {
           <Pressable style={({ pressed }) => [styles.nextButton, isDateValid && styles.nextButtonDisable, pressed && styles.buttonPressed]} onPress={handlePlaceTakeOutOrder} disabled={isDateValid}>
             <Text style={styles.nextButtonText}>Valider la commande</Text>
           </Pressable>
-
+          {isPendingOrder && (<ActivityIndicator size="large" color="#000000" />)}
           {show && (
             <DateTimePicker
               testID="dateTimePicker"
