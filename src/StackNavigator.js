@@ -41,10 +41,21 @@ const MainStackNavigator = ({ navigation }) => {
   );
 }
 
-const MyOrdersStackNavigator = () => {
+const MyOrdersStackNavigator = ({ navigation }) => {
   return (
     <Stack.Navigator initialRouteName="MyOrders">
-      <Stack.Screen name="MyOrders" component={MyOrdersScreen} options={{ title: "Mes commandes" }} />
+      <Stack.Screen 
+      name="MyOrders" 
+      component={MyOrdersScreen} 
+      options={{ 
+        title: "Mes commandes", 
+        headerLeft: () => (
+          <Pressable style={styles.drawerIcon} onPress={() => navigation.openDrawer()}>
+            <Icon name="Bars" height="28" width="28" />
+          </Pressable>
+        ) 
+      }} 
+    />
     </Stack.Navigator>
   );
 }
