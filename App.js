@@ -18,6 +18,7 @@ import OrderScreen from "./src/screens/OrderScreen";
 import OrderTypeScreen from "./src/screens/OrderTypeScreen";
 import MyOrdersScreen from "./src/screens/MyOrdersScreen";
 import ReservationScreen from "./src/screens/ReservationScreen";
+import RegisterScreen from "./src/screens/RegisterScreen";
 
 const App = () => {
   const Stack = createStackNavigator();
@@ -157,7 +158,10 @@ const App = () => {
             <Stack.Screen name="Reservation" component={ReservationScreen} />
           </Stack.Navigator>
         ) : (
-          <LoginScreen />
+          <Stack.Navigator initialRouteName="Login">
+            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="Register" component={RegisterScreen} />
+          </Stack.Navigator>
         )}
         <Toast ref={(ref) => Toast.setRef(ref)} />
       </NavigationContainer>

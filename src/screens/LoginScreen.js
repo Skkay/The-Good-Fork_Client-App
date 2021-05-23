@@ -3,7 +3,7 @@ import { Button, SafeAreaView, StyleSheet, TextInput, ActivityIndicator } from "
 
 import { AuthContext } from '../components/AuthContext';
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
   const [email, onChangeEmail] = useState("user@example.com");
   const [password, onChangePassword] = useState("user");
   const [isLoading, setLoading] = useState(false);
@@ -35,6 +35,13 @@ const LoginScreen = () => {
         onPress={() => {
           setLoading(true);
           signIn(email, password); 
+        }}
+      />
+
+      <Button
+        title="Créer un compte"
+        onPress={() => {
+          navigation.navigate('Register');
         }}
       />
       {isLoading && <ActivityIndicator size="large" color="#000000" />}
