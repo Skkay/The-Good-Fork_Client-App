@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState, useCallback } from "react";
-import { SafeAreaView, ActivityIndicator, FlatList } from "react-native";
+import { SafeAreaView, ActivityIndicator, FlatList, StyleSheet, Text } from "react-native";
 
 import { useFocusEffect } from '@react-navigation/native';
 
@@ -55,13 +55,24 @@ const MyReservationsScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView>
-      <FlatList
+      {data.length > 0 ? (
+        <FlatList
         data={data}
         renderItem={({ item }) => <ReservationItem reservation={item} />}
         keyExtractor={item => item.id.toString()}
       />
+      ) : (
+        <Text style={styles.textCenter}>Vous n'avez aucune réservation.</Text>
+      )}
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  textCenter: {
+    marginTop: 10,
+    textAlign: "center",
+  },
+});
 
 export default MyReservationsScreen;
