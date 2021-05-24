@@ -10,7 +10,7 @@ import Toast from 'react-native-toast-message'
 import { AuthContext } from "./src/components/AuthContext";
 import LoginScreen from "./src/screens/LoginScreen";
 import RegisterScreen from "./src/screens/RegisterScreen";
-import { MainStackNavigator, MyOrdersStackNavigator } from './src/StackNavigator';
+import { MainStackNavigator, MyOrdersStackNavigator, MyReservationsStackNavigator } from './src/StackNavigator';
 
 import CustomDrawer from './src/components/CustomDrawer';
 
@@ -71,6 +71,7 @@ const App = () => {
           )} >
             <Drawer.Screen name="Home" component={MainStackNavigator} options={{ title: "Accueil" }} />
             <Drawer.Screen name="MyOrders" component={MyOrdersStackNavigator} options={{ title: "Mes commandes" }} />
+            <Drawer.Screen name="MyReservations" component={MyReservationsStackNavigator} options={{ title: "Mes réservations" }} />
           </Drawer.Navigator>
         ) : (
           <Stack.Navigator initialRouteName="Login">

@@ -11,6 +11,7 @@ import OrderScreen from "./screens/OrderScreen";
 import OrderTypeScreen from "./screens/OrderTypeScreen";
 import MyOrdersScreen from "./screens/MyOrdersScreen";
 import ReservationScreen from "./screens/ReservationScreen";
+import MyReservationsScreen from './screens/MyReservationsScreen';
 import Icon from './components/svg/Icon';
 
 const Stack = createStackNavigator();
@@ -60,6 +61,25 @@ const MyOrdersStackNavigator = ({ navigation }) => {
   );
 }
 
+const MyReservationsStackNavigator = ({ navigation }) => {
+  return (
+    <Stack.Navigator initialRouteName="MyReservations">
+      <Stack.Screen 
+      name="MyReservations" 
+      component={MyReservationsScreen} 
+      options={{ 
+        title: "Mes réservations", 
+        headerLeft: () => (
+          <Pressable style={styles.drawerIcon} onPress={() => navigation.openDrawer()}>
+            <Icon name="Bars" height="28" width="28" />
+          </Pressable>
+        ) 
+      }} 
+    />
+  </Stack.Navigator>
+  );
+}
+
 const styles = StyleSheet.create({
   drawerIcon: {
     marginLeft: 15,
@@ -67,4 +87,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export { MainStackNavigator, MyOrdersStackNavigator };
+export { MainStackNavigator, MyOrdersStackNavigator, MyReservationsStackNavigator };
