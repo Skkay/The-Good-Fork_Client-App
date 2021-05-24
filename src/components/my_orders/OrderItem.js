@@ -17,7 +17,7 @@ const OrderItem = ({ order }) => {
             <Text style={styles.orderHeaderLabel}>TOTAL</Text>
             <Text>{order.price} €</Text>
             <Text>
-              <Text style={styles.orderHeaderLabel}>ID: </Text>
+              <Text style={styles.orderHeaderLabel}>N° : </Text>
               <Text>{order.id}</Text>
             </Text>
           </View>
