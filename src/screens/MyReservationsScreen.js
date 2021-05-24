@@ -43,7 +43,7 @@ const MyReservationsScreen = ({ navigation }) => {
   useFocusEffect(
     useCallback(() => {
       setLoading(true);
-      fetchReservations(token, userId)
+      fetchReservations(token, userId, false)
         .then((res) => setData(res))
         .finally(() => setLoading(false));
     }, [userId])

@@ -106,7 +106,7 @@ const OrderTypeScreen = ({ route, navigation }) => {
       .catch((err) => console.log(err))
     if (!userId) return;
 
-    fetchReservations(token, userId)
+    fetchReservations(token, userId, true)
       .then((res) => setReservations(res))
       .finally(() => setLoading(false));
   }, [token, isValidToken, userId]);
