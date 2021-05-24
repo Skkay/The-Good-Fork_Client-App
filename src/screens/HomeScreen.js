@@ -1,12 +1,9 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Button, SafeAreaView, Text } from "react-native";
 
 import Toast from 'react-native-toast-message'
 
-import { AuthContext } from '../components/AuthContext';
-
 const HomeScreen = ({ route, navigation }) => {
-  const { signOut } = useContext(AuthContext);
   const { toastType, toastExtra } = route.params;
 
   // Toast notifications
