@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, SafeAreaView, StyleSheet, TextInput, ActivityIndicator } from "react-native";
+import { SafeAreaView, StyleSheet, TextInput, ActivityIndicator, Pressable, View, Text } from "react-native";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import jwt_decode from "jwt-decode";
@@ -39,7 +39,7 @@ const LoginScreen = ({ setConnected, navigation }) => {
   }
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ justifyContent: 'center', flex: 1 }}>
       <TextInput
         style={styles.input}
         onChangeText={onChangeEmail}
@@ -59,15 +59,16 @@ const LoginScreen = ({ setConnected, navigation }) => {
         textContentType="password"
         secureTextEntry={true}
       />
-      <Button
-        title="Se connecter"
-        onPress={handleLogin}
-      />
 
-      <Button
-        title="Créer un compte"
-        onPress={() => navigation.navigate('Register')}
-      />
+      <View style={styles.buttonGroup}>
+        <Pressable style={({ pressed }) => [styles.button, styles.buttonRegister, pressed && styles.buttonPressed]} onPress={() => navigation.navigate('Register')}>
+          <Text style={[styles.buttonText, styles.buttonTextRegister]}>S'inscire</Text>
+        </Pressable>
+        <Pressable style={({ pressed }) => [styles.button, styles.buttonLogin, pressed && styles.buttonPressed]} onPress={handleLogin}>
+          <Text style={styles.buttonText}>Se connecter</Text>
+        </Pressable>
+      </View>
+
       {isLoading && <ActivityIndicator size="large" color="#000000" />}
     </SafeAreaView>
   );
@@ -78,7 +79,41 @@ const styles = StyleSheet.create({
     height: 40,
     margin: 12,
     borderWidth: 1,
+    backgroundColor: "#FFFFFF",
+    paddingHorizontal: 10,
   },
+
+  buttonGroup: {
+    flexDirection: "row",
+  },
+  button: {
+    backgroundColor: "#FFFFFF",
+    flexGrow: 1,
+    flexShrink: 1,
+    flexBasis: 0,
+    padding: 10,
+    margin: 10,
+    borderRadius: 10,
+  },
+  buttonLogin: {
+    backgroundColor: "#FFFFFF",
+    borderWidth: 1,
+    borderColor: "#000000"
+  },
+  buttonRegister: {
+    backgroundColor: "#000000",
+  },
+  buttonPressed: {
+    backgroundColor: "#BFBFBF",
+  },
+  buttonText: {
+    color: "#000000",
+    textAlign: "center",
+    fontSize: 16,
+  },
+  buttonTextRegister: {
+    color: "#FFFFFF"
+  }
 });
 
 export default LoginScreen;
