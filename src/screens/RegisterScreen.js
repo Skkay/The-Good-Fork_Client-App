@@ -1,10 +1,8 @@
-import React, { useContext, useState } from "react";
-import { Button, SafeAreaView, StyleSheet, TextInput, ActivityIndicator, Text } from "react-native";
+import React, { useState } from "react";
+import { SafeAreaView, StyleSheet, TextInput, ActivityIndicator, Text, View, Pressable } from "react-native";
 
 import axios from "axios";
 import Toast from 'react-native-toast-message'
-
-import { AuthContext } from '../components/AuthContext';
 
 const RegisterScreen = ({ navigation }) => {
   const [email, onChangeEmail] = useState("user@example.com");
@@ -43,8 +41,7 @@ const RegisterScreen = ({ navigation }) => {
   }
 
   return (
-    <SafeAreaView>
-      <Text>Register</Text>
+    <SafeAreaView style={{ justifyContent: 'center', flex: 1 }}>
       <TextInput
         style={styles.input}
         onChangeText={onChangeEmail}
@@ -64,10 +61,13 @@ const RegisterScreen = ({ navigation }) => {
         textContentType="password"
         secureTextEntry={true}
       />
-      <Button
-        title="Créer son compte"
-        onPress={handleRegister}
-      />
+
+      <View style={styles.buttonGroup}>
+        <Pressable style={({ pressed }) => [styles.button, pressed && styles.buttonPressed]} onPress={handleRegister}>
+          <Text style={styles.buttonText}>Créer son compte</Text>
+        </Pressable>
+      </View>
+
       {isLoading && <ActivityIndicator size="large" color="#000000" />}
     </SafeAreaView>
   );
@@ -78,6 +78,27 @@ const styles = StyleSheet.create({
     height: 40,
     margin: 12,
     borderWidth: 1,
+    backgroundColor: "#FFFFFF",
+    paddingHorizontal: 10,
+  },
+
+  buttonGroup: {
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+  button: {
+    backgroundColor: "#000000",
+    padding: 10,
+    margin: 10,
+    borderRadius: 10,
+  },
+  buttonPressed: {
+    backgroundColor: "#BFBFBF",
+  },
+  buttonText: {
+    color: "#FFFFFF",
+    textAlign: "center",
+    fontSize: 16,
   },
 });
 
