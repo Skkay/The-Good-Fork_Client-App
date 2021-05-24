@@ -74,10 +74,10 @@ const App = () => {
           </Drawer.Navigator>
         ) : (
           <Stack.Navigator initialRouteName="Login">
-            <Stack.Screen name="Login">
+            <Stack.Screen name="Login" options={{ title: "Connexion" }}>
               {({ navigation }) => <LoginScreen navigation={navigation} setConnected={setConnected} />}
             </Stack.Screen>
-            <Stack.Screen name="Register" component={RegisterScreen} />
+            <Stack.Screen name="Register" component={RegisterScreen} options={{ title: "Inscription" }} />
           </Stack.Navigator>
         )}
         <Toast ref={(ref) => Toast.setRef(ref)} />
