@@ -1,5 +1,7 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useCallback } from "react";
 import { SafeAreaView, ActivityIndicator, FlatList } from "react-native";
+
+import { useFocusEffect } from '@react-navigation/native';
 
 import { AuthContext } from '../components/AuthContext';
 import ExpiredSession from '../components/alert/ExpiredSession';
@@ -36,12 +38,16 @@ const MyOrdersScreen = () => {
     fetchUserId()
       .then((id) => setUserId(id))
       .catch((err) => console.log(err))
-    if (!userId) return;
+  }, [token, isValidToken]);
 
-    fetchOrders(token, userId)
-      .then((res) => setData(res))
-      .finally(() => setLoading(false));
-  }, [token, isValidToken, userId]);
+  useFocusEffect(
+    useCallback(() => {
+      setLoading(true);
+        fetchOrders(token, userId)
+          .then((res) => setData(res))
+          .finally(() => setLoading(false));
+    }, [userId])
+  );
 
   if (isLoading) {
     return (<ActivityIndicator size="large" color="#000000" />);
