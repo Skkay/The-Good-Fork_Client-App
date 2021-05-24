@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Button, SafeAreaView, Text } from "react-native";
+import { SafeAreaView, Text, Pressable, StyleSheet, View } from "react-native";
 
 import Toast from 'react-native-toast-message'
 
@@ -31,29 +31,73 @@ const HomeScreen = ({ route, navigation }) => {
 
   return (
     <SafeAreaView>
-      <Text>Home screen</Text>
-      <Button 
-        title="Menus"
-        onPress={() => navigation.navigate('Menu')}
-      />
-      <Button 
-        title="Foods"
-        onPress={() => navigation.navigate('Food')}
-      />
-      <Button 
-        title="Drinks"
-        onPress={() => navigation.navigate('Drink')}
-      />
-      <Button 
-        title="Order"
-        onPress={() => navigation.navigate('Order')}
-      />
-      <Button 
-        title="Reservation"
-        onPress={() => navigation.navigate('Reservation')}
-      />
+      <Text style={styles.title}>The Good Fork</Text>
+      <Text style={styles.subTitle}>Bienvenue au restaurant The Good Fork.</Text>
+
+      <View style={{ marginTop: 20 }}>
+        <View style={styles.buttonGroup}>
+          <Pressable style={({ pressed }) => [styles.buttonGroupButton, styles.button, pressed && styles.buttonPressed]} onPress={() => navigation.navigate('Food')}>
+            <Text style={styles.buttonText}>Nos plats</Text>
+          </Pressable>
+          <Pressable style={({ pressed }) => [styles.buttonGroupButton, styles.button, pressed && styles.buttonPressed]} onPress={() => navigation.navigate('Drink')}>
+            <Text style={styles.buttonText}>Nos boissons</Text>
+          </Pressable>
+        </View>
+        <Pressable style={({ pressed }) => [styles.button, pressed && styles.buttonPressed]} onPress={() => navigation.navigate('Menu')}>
+          <Text style={styles.buttonText}>Nos menus</Text>
+        </Pressable>
+      </View>
+
+      <Pressable style={({ pressed }) => [{ marginTop: 40 }, styles.button, pressed && styles.buttonPressed]} onPress={() => navigation.navigate('Reservation')}>
+        <Text style={styles.buttonText}>Réserver une table</Text>
+      </Pressable>
+      <Pressable style={({ pressed }) => [{ marginTop: 30 }, styles.button, pressed && styles.buttonPressed]} onPress={() => navigation.navigate('Order')}>
+        <Text style={styles.buttonText}>Commander</Text>
+      </Pressable>
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  title: {
+    marginTop: 10,
+    textAlign: "center",
+    fontSize: 30
+  },
+  subTitle: {
+    textAlign: "center"
+  },
+  buttonGroup: {
+    flexDirection: "row",
+  },
+  buttonGroupButton: {
+    flexGrow: 1,
+    flexShrink: 1,
+    flexBasis: 0,
+  },
+  button: {
+    backgroundColor: "#FFFFFF",
+    padding: 10,
+    margin: 10,
+    borderRadius: 10,
+
+    shadowColor: "#000000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  },
+  buttonPressed: {
+    backgroundColor: "#BFBFBF",
+  },
+  buttonText: {
+    color: "#000000",
+    textAlign: "center",
+    fontSize: 16,
+  },
+});
 
 export default HomeScreen;
