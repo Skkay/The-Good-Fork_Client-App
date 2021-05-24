@@ -75,7 +75,7 @@ const App = () => {
         ) : (
           <Stack.Navigator initialRouteName="Login">
             <Stack.Screen name="Login">
-              {() => <LoginScreen setConnected={setConnected} />}
+              {({ navigation }) => <LoginScreen navigation={navigation} setConnected={setConnected} />}
             </Stack.Screen>
             <Stack.Screen name="Register" component={RegisterScreen} />
           </Stack.Navigator>
