@@ -12,6 +12,8 @@ import LoginScreen from "./src/screens/LoginScreen";
 import RegisterScreen from "./src/screens/RegisterScreen";
 import { MainStackNavigator, MyOrdersStackNavigator } from './src/StackNavigator';
 
+import CustomDrawer from './src/components/CustomDrawer';
+
 const App = () => {
   const Stack = createStackNavigator();
   const Drawer = createDrawerNavigator();
@@ -65,11 +67,8 @@ const App = () => {
       <NavigationContainer>
         {isConnected ? (
           <Drawer.Navigator initialRouteName="Home" drawerContent={props => (
-            <DrawerContentScrollView {...props}>
-              <DrawerItemList {...props} />
-              <DrawerItem label="Déconnexion" onPress={signOut} />
-            </DrawerContentScrollView>
-          )}>
+            <CustomDrawer props={props} signOut={signOut} />
+          )} >
             <Drawer.Screen name="Home" component={MainStackNavigator} options={{ title: "Accueil" }} />
             <Drawer.Screen name="MyOrders" component={MyOrdersStackNavigator} options={{ title: "Mes commandes" }} />
           </Drawer.Navigator>
