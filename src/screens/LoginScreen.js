@@ -62,7 +62,7 @@ const LoginScreen = ({ setConnected, navigation }) => {
 
       <View style={styles.buttonGroup}>
         <Pressable style={({ pressed }) => [styles.button, styles.buttonRegister, pressed && styles.buttonPressed]} onPress={() => navigation.navigate('Register')}>
-          <Text style={[styles.buttonText, styles.buttonTextRegister]}>S'inscire</Text>
+          <Text style={[styles.buttonText, styles.buttonTextRegister]}>S'inscrire</Text>
         </Pressable>
         <Pressable style={({ pressed }) => [styles.button, styles.buttonLogin, pressed && styles.buttonPressed]} onPress={handleLogin}>
           <Text style={styles.buttonText}>Se connecter</Text>
