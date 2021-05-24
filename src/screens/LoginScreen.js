@@ -6,8 +6,8 @@ import jwt_decode from "jwt-decode";
 import axios from "axios";
 
 const LoginScreen = ({ setConnected, navigation }) => {
-  const [email, onChangeEmail] = useState("user@example.com");
-  const [password, onChangePassword] = useState("user");
+  const [email, onChangeEmail] = useState("");
+  const [password, onChangePassword] = useState("");
   const [isLoading, setLoading] = useState(false);
 
   const handleLogin = () => {

@@ -5,8 +5,8 @@ import axios from "axios";
 import Toast from 'react-native-toast-message'
 
 const RegisterScreen = ({ navigation }) => {
-  const [email, onChangeEmail] = useState("user@example.com");
-  const [password, onChangePassword] = useState("user");
+  const [email, onChangeEmail] = useState("");
+  const [password, onChangePassword] = useState("");
   const [isLoading, setLoading] = useState(false);
 
   const handleRegister = () => {
