@@ -36,7 +36,8 @@ const postOrder = (token, cartData, extraInfo, eatIn, datePickup, discountId, re
       drinkIds: drinkIds,
       extraInformations: extraInfo,
       discountId: discountId,
-      reservationId: reservationId
+      reservationId: reservationId,
+      orderedByStaff: false
     },
     headers: {
       'accept': options.headers.accept,
