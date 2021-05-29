@@ -13,6 +13,7 @@ const postReservation = (token, serviceId, tableId, date) => {
       serviceId: serviceId,
       tableId: tableId,
       date: date,
+      reservedByStaff: false,
       customerName: null,
     },
     headers: {
