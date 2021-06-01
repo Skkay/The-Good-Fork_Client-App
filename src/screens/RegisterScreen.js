@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { SafeAreaView, StyleSheet, TextInput, ActivityIndicator, Text, View, Pressable } from "react-native";
 
+import { API_URL } from '../components/fetch/options';
 import axios from "axios";
 import Toast from 'react-native-toast-message'
 
@@ -13,7 +14,7 @@ const RegisterScreen = ({ navigation }) => {
     setLoading(true);
     axios({
       method: "POST",
-      url: "http://192.168.1.18/3proj_api/public/api/users",
+      url: `${API_URL}/users`,
       withCredentials: true,
       data: {
         email: email,

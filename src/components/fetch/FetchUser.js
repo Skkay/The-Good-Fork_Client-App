@@ -1,9 +1,9 @@
-import getFetchingOption from './options';
+import { getFetchingOption, API_URL } from './options';
 
 const fetchUser = (token, id) => {
   const option = getFetchingOption(token);
 
-  return fetch(`http://192.168.1.18/3proj_api/public/api/users/${id}`, option)
+  return fetch(`${API_URL}/users/${id}`, option)
     .then((res) => res.json())
     .then((json) => json)
     .catch((err) => console.log(err));

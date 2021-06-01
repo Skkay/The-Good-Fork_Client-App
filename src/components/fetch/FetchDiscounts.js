@@ -1,9 +1,9 @@
-import getFetchingOption from './options';
+import { getFetchingOption, API_URL } from './options';
 
 const fetchDiscounts = (token) => {
   const options = getFetchingOption(token);
 
-  return fetch('http://192.168.1.18/3proj_api/public/api/discounts', options)
+  return fetch(`${API_URL}/discounts`, options)
     .then((res) => res.json())
     .then((json) => json)
     .catch((err) => console.log(err));

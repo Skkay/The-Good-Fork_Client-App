@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { SafeAreaView, StyleSheet, TextInput, ActivityIndicator, Pressable, View, Text } from "react-native";
 
+import { API_URL } from '../components/fetch/options';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
@@ -14,7 +15,7 @@ const LoginScreen = ({ setConnected, navigation }) => {
     setLoading(true);
     axios({
       method: "POST",
-      url: "http://192.168.1.18/3proj_api/public/api/login",
+      url: `${API_URL}/login`,
       withCredentials: true,
       data: {
         email: email,

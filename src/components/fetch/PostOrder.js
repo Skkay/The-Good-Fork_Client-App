@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import getFetchingOption from './options';
+import { getFetchingOption, API_URL } from './options';
 
 const postOrder = (token, cartData, extraInfo, eatIn, datePickup, discountId, reservationId) => {
   const options = getFetchingOption(token);
@@ -26,7 +26,7 @@ const postOrder = (token, cartData, extraInfo, eatIn, datePickup, discountId, re
 
   return axios({
     method: "POST",
-    url: "http://192.168.1.18/3proj_api/public/api/orders",
+    url: `${API_URL}/orders`,
     withCredentials: true,
     data: {
       eatIn: eatIn,
