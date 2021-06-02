@@ -15,13 +15,13 @@ const DetailMenuModal = ({ modalVisible, onRequestClose, onCloseButtonPress, sel
     if (selectedItem.drinks.length > 0) {
       selectedItem.drinks.forEach(e => drinksData.push(<Text key={e.id}>{e.name}</Text>));
     } else {
-      drinksData.push(<Text key={0}>Nothing...</Text>);
+      drinksData.push(<Text key={0}>Aucune boisson...</Text>);
     }
 
     if (selectedItem.foods.length > 0) {
       selectedItem.foods.forEach(e => foodsData.push(<Text key={e.id}>{e.name}</Text>));
     } else {
-      foodsData.push(<Text key={0}>Nothing...</Text>);
+      foodsData.push(<Text key={0}>Aucun plat...</Text>);
     }
   }
 
@@ -49,7 +49,7 @@ const DetailMenuModal = ({ modalVisible, onRequestClose, onCloseButtonPress, sel
 
         </ScrollView>
           <Pressable
-            style={styles.button}
+            style={({ pressed }) => [styles.button, pressed && styles.buttonPressed]}
             onPress={onCloseButtonPress}>
             <Text style={styles.textButton}>Fermer</Text>
           </Pressable>
@@ -66,10 +66,10 @@ const styles = StyleSheet.create({
     marginBottom: 60,
     marginHorizontal: 35,
 
-    backgroundColor: "white",
+    backgroundColor: "#F8F8F8",
     borderRadius: 5,
     
-    shadowColor: "#000",
+    shadowColor: "#000000",
     shadowOffset: {
       width: 0,
       height: 2
@@ -104,17 +104,18 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    borderRadius: 5,
     padding: 10,
     margin: 10,
-    elevation: 2,
-    backgroundColor: "#2196F3",
+    backgroundColor: "#000000",
   },
   textButton: {
-    color: "white",
+    color: "#FFFFFF",
     fontWeight: "bold",
-    textAlign: "center"
+    textAlign: "center",
   },
+  buttonPressed: {
+    backgroundColor: "#DBDBDB",
+  }
 });
 
 export default DetailMenuModal;

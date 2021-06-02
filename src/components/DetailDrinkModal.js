@@ -27,7 +27,7 @@ const DetailDrinkModal = ({ modalVisible, onRequestClose, onCloseButtonPress, se
           <Text style={styles.textPrice}>{Number.parseFloat(drinkPrice).toFixed(2)} €</Text>
         </ScrollView>
           <Pressable
-            style={styles.button}
+            style={({ pressed }) => [styles.button, pressed && styles.buttonPressed]}
             onPress={onCloseButtonPress}>
             <Text style={styles.textButton}>Fermer</Text>
           </Pressable>
@@ -44,10 +44,10 @@ const styles = StyleSheet.create({
     marginBottom: 60,
     marginHorizontal: 35,
 
-    backgroundColor: "white",
+    backgroundColor: "#F8F8F8",
     borderRadius: 5,
     
-    shadowColor: "#000",
+    shadowColor: "#000000",
     shadowOffset: {
       width: 0,
       height: 2
@@ -82,17 +82,18 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    borderRadius: 5,
     padding: 10,
     margin: 10,
-    elevation: 2,
-    backgroundColor: "#2196F3",
+    backgroundColor: "#000000",
   },
   textButton: {
-    color: "white",
+    color: "#FFFFFF",
     fontWeight: "bold",
-    textAlign: "center"
+    textAlign: "center",
   },
+  buttonPressed: {
+    backgroundColor: "#DBDBDB",
+  }
 });
 
 export default DetailDrinkModal;

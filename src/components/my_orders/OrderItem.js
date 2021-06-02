@@ -9,7 +9,7 @@ const OrderItem = ({ order }) => {
     <View style={styles.order}>
         <View style={styles.orderHeader}>
           <View>
-            <Text style={styles.orderHeaderLabel}>COMMANDÉ LE</Text>
+            <Text style={styles.orderHeaderLabel}>COMMANDÉE LE</Text>
             <Text>{date.getDate().toString().padStart(2, '0')}/{(date.getMonth() + 1).toString().padStart(2, '0')}/{date.getFullYear()} à {date.getHours().toString().padStart(2, '0')}:{date.getMinutes().toString().padStart(2, '0')}</Text>
             <Text>{order.eatIn ? ("Sur place") : ("À emporter")}</Text>
           </View>
@@ -17,7 +17,7 @@ const OrderItem = ({ order }) => {
             <Text style={styles.orderHeaderLabel}>TOTAL</Text>
             <Text>{order.price} €</Text>
             <Text>
-              <Text style={styles.orderHeaderLabel}>N° : </Text>
+              <Text style={styles.orderHeaderLabel}>N° </Text>
               <Text>{order.id}</Text>
             </Text>
           </View>

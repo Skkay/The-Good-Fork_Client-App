@@ -159,13 +159,13 @@ const OrderScreen = ({ navigation }) => {
 
       <View style={styles.header}>
         <TouchableOpacity style={[styles.headerButton, activeTab === 0 && styles.headerButtonActive]} onPress={() => setActiveTab(0)}>
-          <Text style={styles.headerButtonText}>Menus</Text>
+          <Text style={[styles.headerButtonText, activeTab === 0 && styles.headerButtonTextActive]}>Menus</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.headerButton, activeTab === 1 && styles.headerButtonActive]} onPress={() => setActiveTab(1)}>
-          <Text style={styles.headerButtonText}>Plats</Text>
+          <Text style={[styles.headerButtonText, activeTab === 1 && styles.headerButtonTextActive]}>Plats</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.headerButton, activeTab === 2 && styles.headerButtonActive]} onPress={() => setActiveTab(2)}>
-          <Text style={styles.headerButtonText}>Boissons</Text>
+          <Text style={[styles.headerButtonText, activeTab === 2 && styles.headerButtonTextActive]}>Boissons</Text>
         </TouchableOpacity>
       </View>
       {activeTab === 0 && (
@@ -180,7 +180,7 @@ const OrderScreen = ({ navigation }) => {
 
       {/* Display number of items and total price. Disable Pressable if cart is empty */}
       <View style={styles.cartView}>
-        <Pressable style={({ pressed }) => [styles.cartPressable, cartCount < 1 && styles.cartPressableDisable, (pressed && cartCount > 0) && styles.cartPressablePressed]} disabled={cartCount < 1} onPress={handleCartBannerPress}>
+        <Pressable style={({ pressed }) => [styles.cartPressable, pressed && styles.cartPressablePressed]} onPress={handleCartBannerPress}>
           <Text style={styles.cartText}>
             Voir le panier ({cartCount}). • {cartPrice.toFixed(2)} €
           </Text>
@@ -199,37 +199,53 @@ const styles = StyleSheet.create({
     flexShrink: 1,
     flexBasis: 0,
     backgroundColor: "#D1D1D1",
+    borderLeftWidth: 0.25,
+    borderRightWidth: 0.25,
+    borderTopWidth: 0.5,
+    borderBottomWidth: 0.5,
+    borderColor: "#000000",
   },
   headerButtonActive: {
-    backgroundColor: "#FF8383",
-    borderBottomWidth: 3,
-    borderBottomColor: "#B74343",
+    backgroundColor: "#000000",
   },
   headerButtonText: {
     textAlign: "center",
     fontSize: 18,
-    marginVertical: 10
+    marginVertical: 10,
+    color: "#000000",
+  },
+  headerButtonTextActive: {
+    color: "#FFFFFF",
   },
   cartView: {
     padding: 15,
     backgroundColor: "#EAEAEA",
-    borderTopColor: "#ABABAB",
-    borderTopWidth: 2,
+    borderTopColor: "#000000",
+    borderTopWidth: 0.5,
   },
   cartPressable: {
     padding: 8,
-    backgroundColor: "#6FAFFF",
-    borderRadius: 10
+    backgroundColor: "#000000",
+
+    shadowColor: "#000000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
   },
   cartPressableDisable: {
     backgroundColor: "#A8A8A8",
   },
   cartPressablePressed: {
-    backgroundColor: "#2E68B0",
+    backgroundColor: "#DBDBDB",
   },
   cartText: {
     fontSize: 18,
     textAlign: "center",
+    color: "#FFFFFF",
   }
 });
 

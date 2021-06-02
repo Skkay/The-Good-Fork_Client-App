@@ -28,12 +28,12 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   pressable: {
-    backgroundColor: "#A16DFF",
+    backgroundColor: "#000000",
     paddingHorizontal: 5,
     borderRadius: 5,
   },
   pressablePressed: {
-    backgroundColor: "#D4BDFE",
+    backgroundColor: "#DBDBDB",
   },
   title: {
     fontSize: 22,

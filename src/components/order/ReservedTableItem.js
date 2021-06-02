@@ -22,14 +22,14 @@ const stylesVar = {
   borderRadius: 5,
   borderWidth: 1,
   selectedBorderWidth: 2,
-  borderColor: "#0090FF"
+  borderColor: "#000000"
 };
 const styles = StyleSheet.create({
   reservation: {
     margin: 10,
   },
   reservationHeader: {
-    backgroundColor: "#A4D7FF",
+    backgroundColor: "#E1E1E1",
     borderTopLeftRadius: stylesVar.borderRadius,
     borderTopRightRadius: stylesVar.borderRadius,
     borderLeftColor: stylesVar.borderColor,

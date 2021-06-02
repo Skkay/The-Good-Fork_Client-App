@@ -108,13 +108,13 @@ const CartModal = ({ navigation, modalVisible, onRequestClose, onCloseButtonPres
 
         <View style={styles.buttonGroup}>
           <Pressable
-            style={styles.button}
+            style={({ pressed }) => [styles.button, styles.buttonBack, pressed && styles.buttonPressed]}
             onPress={onCloseButtonPress}>
-            <Text style={styles.textButton}>Retour</Text>
+            <Text style={[styles.textButton, styles.textButtonBack]}>Retour</Text>
           </Pressable>
           <Pressable
-            style={({ pressed }) => [styles.button, cartCount < 1 && styles.buttonDisable, (pressed && cartCount > 0) && styles.buttonPressed]} disabled={cartCount < 1} onPress={handleBuyButtonClick}>
-            <Text style={styles.textButton}>Payer</Text>
+            style={({ pressed }) => [styles.button, styles.buttonNext, cartCount < 1 && styles.buttonDisable, (pressed && cartCount > 0) && styles.buttonPressed]} disabled={cartCount < 1} onPress={handleBuyButtonClick}>
+            <Text style={[styles.textButton, styles.textButtonNext]}>Payer</Text>
           </Pressable>
         </View>
       </View>
@@ -156,19 +156,31 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 10,
     margin: 10,
-    elevation: 2,
-    backgroundColor: "#2196F3",
+    width: 100,
+    borderWidth: 1,
+    borderColor: "#000000",
+  },
+  buttonBack: {
+    backgroundColor: "#FFFFFF",
+  },
+  buttonNext: {
+    backgroundColor: "#000000",
   },
   buttonDisable: {
     backgroundColor: "#A8A8A8",
   },
   buttonPressed: {
-    backgroundColor: "#2E68B0",
+    backgroundColor: "#DBDBDB",
   },
   textButton: {
-    color: "#FFFFFF",
     fontWeight: "bold",
     textAlign: "center"
+  },
+  textButtonBack: {
+    color: "#000000",
+  },
+  textButtonNext: {
+    color: "#FFFFFF",
   },
 
   modalTitle: {

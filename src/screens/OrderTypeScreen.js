@@ -186,15 +186,15 @@ const OrderTypeScreen = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   buttonGroup: {
     flexDirection: "row",
-    borderBottomWidth: 2,
-    borderBottomColor: "#C3C3C3"
+    borderBottomWidth: 1,
+    borderBottomColor: "#000000"
   },
   buttonRadio: {
     flexGrow: 1,
     flexShrink: 1,
     flexBasis: 0,
     backgroundColor: "#FFFFFF",
-    borderColor: "#0090FF",
+    borderColor: "#000000",
     borderWidth: 1,
     borderRadius: 20,
     marginHorizontal: 10,
@@ -202,12 +202,12 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
   },
   buttonRadioSelected: {
-    backgroundColor: "#0090FF",
+    backgroundColor: "#000000",
   },
   buttonRadioText: {
     textAlign: "center",
     fontSize: 20,
-    color: "#0090FF",
+    color: "#000000",
   },
   buttonRadioTextSelected: {
     color: "#FFFFFF"
@@ -221,33 +221,34 @@ const styles = StyleSheet.create({
   },
   buttonSelectDateTime: {
     backgroundColor: "#FFFFFF",
-    borderColor: "#0090FF",
+    borderColor: "#000000",
     borderWidth: 1,
     marginHorizontal: 15,
-    paddingVertical: 10,
+    paddingVertical: 5,
     borderRadius: 10,
   },
   buttonPressed: {
-    backgroundColor: "#034C85",
+    backgroundColor: "#DBDBDB",
   },
   buttonSelectDateTimeText: {
     textAlign: "center",
     fontSize: 20,
-    color: "#0090FF",
+    color: "#000000",
   },
   textSelectedDateTime: {
+    marginTop: 10,
     textAlign: "center",
-    color: "#034C85",
+    color: "#000000",
     fontSize: 16,
     fontWeight: "bold"
   },
 
   nextButton: {
-    backgroundColor: "#0090FF",
+    backgroundColor: "#000000",
     borderRadius: 10,
-    marginTop: 10,
-    marginHorizontal: 30,
-    paddingVertical: 5,
+    marginTop: 50,
+    marginHorizontal: 40,
+    paddingVertical: 10,
   },
   nextButtonText: {
     color: "#FFFFFF",

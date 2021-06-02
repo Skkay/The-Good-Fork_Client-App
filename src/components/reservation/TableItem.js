@@ -42,7 +42,7 @@ const TableItem = ({ table, token, navigation }) => {
           <Text>{table.table.place} {table.table.place > 1 ? "places" : "place" }</Text>
         </View>
         <Pressable
-          style={styles.button}
+          style={({ pressed }) => [styles.button, pressed && styles.buttonPressed]}
           onPress={handlePressReservationButton}>
           <Text style={styles.textButton}>Réserver</Text>
         </Pressable>
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   reservationHeader: {
-    backgroundColor: "#FFE9BA",
+    backgroundColor: "#E1E1E1",
     borderTopLeftRadius: stylesVar.borderRadius,
     borderTopRightRadius: stylesVar.borderRadius,
     borderLeftColor: stylesVar.borderColor,
@@ -89,13 +89,16 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   button: {
-    backgroundColor: "#FFBC2D",
+    backgroundColor: "#000000",
     paddingHorizontal: 5,
     borderRadius: 3,
     justifyContent: "center",
   },
+  buttonPressed: {
+    backgroundColor: "#DBDBDB",
+  },
   textButton: {
-    color: "#483100"
+    color: "#FFFFFF"
   },
 });
 

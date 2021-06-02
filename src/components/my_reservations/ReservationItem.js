@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   reservationHeader: {
-    backgroundColor: "#E0E0E0",
+    backgroundColor: "#E1E1E1",
     borderTopLeftRadius: stylesVar.borderRadius,
     borderTopRightRadius: stylesVar.borderRadius,
     borderLeftColor: stylesVar.borderColor,

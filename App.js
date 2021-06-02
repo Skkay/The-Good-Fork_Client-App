@@ -66,9 +66,10 @@ const App = () => {
     <AuthContext.Provider value={authContext}>
       <NavigationContainer>
         {isConnected ? (
-          <Drawer.Navigator initialRouteName="Home" drawerContent={props => (
-            <CustomDrawer props={props} signOut={signOut} />
-          )} >
+          <Drawer.Navigator 
+            initialRouteName="Home" 
+            drawerContent={props => ( <CustomDrawer props={props} signOut={signOut} /> )} 
+            drawerContentOptions={{ activeTintColor: "#000000" }} >
             <Drawer.Screen name="Home" component={MainStackNavigator} options={{ title: "Accueil" }} />
             <Drawer.Screen name="MyOrders" component={MyOrdersStackNavigator} options={{ title: "Mes commandes" }} />
             <Drawer.Screen name="MyReservations" component={MyReservationsStackNavigator} options={{ title: "Mes réservations" }} />
