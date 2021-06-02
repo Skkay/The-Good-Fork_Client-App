@@ -3,12 +3,14 @@ import { SafeAreaView, StyleSheet, Image, } from 'react-native';
 
 import { DrawerContentScrollView, DrawerItemList, DrawerItem, } from '@react-navigation/drawer';
 
+import { BRAND } from '../components/images/images';
+
 const CustomDrawer = ({ props, signOut }) => {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <Image
-        source={{ uri: "https://via.placeholder.com/260x100.png" }}
+        source={BRAND}
         style={styles.headerImage}
       />
       <DrawerContentScrollView {...props}>
@@ -21,8 +23,6 @@ const CustomDrawer = ({ props, signOut }) => {
 
 const styles = StyleSheet.create({
   headerImage: {
-    width: 260,
-    height: 100,
     alignSelf: 'center',
     marginTop: 20
   },
