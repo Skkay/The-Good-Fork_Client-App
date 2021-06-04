@@ -1,3 +1,5 @@
+import { API_URL } from '../../../config';
+
 const getFetchingOption = (token) => {
   return {
     headers: {
@@ -6,7 +8,5 @@ const getFetchingOption = (token) => {
     }
   };
 }
-
-const API_URL = "http://192.168.1.18/3proj_api/public/api";
 
 export { getFetchingOption, API_URL };
