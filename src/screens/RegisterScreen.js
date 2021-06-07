@@ -35,7 +35,13 @@ const RegisterScreen = ({ navigation }) => {
         if (errorTitle === "FieldAlreadyUsedException") {
           Toast.show({
             type: 'error',
-            text1: 'Adresse email déjà utilisée',
+            text1: 'Adresse email déjà utilisée.',
+          });
+        } else {
+          Toast.show({
+            type: "error",
+            text1: "Erreur",
+            text2: "Une erreur s'est produite. Veuillez réessayer plus tard."
           });
         }
       });
