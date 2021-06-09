@@ -15,7 +15,7 @@ const OrderItem = ({ order }) => {
           </View>
           <View style={{ alignItems: 'flex-end' }}>
             <Text style={styles.orderHeaderLabel}>TOTAL</Text>
-            <Text>{order.price} €</Text>
+            <Text>{Number.parseFloat(order.price).toFixed(2)} €</Text>
             <Text>
               <Text style={styles.orderHeaderLabel}>N° </Text>
               <Text>{order.id}</Text>
